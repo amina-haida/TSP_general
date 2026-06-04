@@ -1,0 +1,22 @@
+fonction calcul_longueur (depart :str , arrivee:str , longueur, donnees : [str]Coordonnees, chemin [string], visites [string]) --> [string]
+
+    if len(chemin) == longueur -1 :
+        chemin.append(arrivee)
+        return chemin
+    
+    elif len(chemin) == 0 :
+        visitees.append(depart)
+        chemin.append(depart)
+        calcul_longueur(depart, arrivee, longueur, donnees, chemin , visitees )
+
+    else : 
+        for pays in donnees :
+            if pays not in visites 
+                chemin.append(pays )
+                visitees.append(pays)
+                calcul_longueur(depart, arrivee, longueur, donnees, chemin , visitees )
+                chemin.pop()
+                visitees.pop()
+
+
+
