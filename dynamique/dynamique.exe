@@ -1,8 +1,26 @@
-memo := [[str]] coût
+meilleur de celles visites + arriveer à=au nôtre 
 
-c_dynamique ( ville str , visitees [string ])
+liste_pays : ensemble {string}
 
-meilleur de celles visitees + arriveer à la nôtre 
+// créer la structure bool où 1 signifie que le pays est visité
 
+rec_tsp( visites ensemble,depart, arrivee string, memo_cout)
+    if visites = {depart} :
+        visites.append(arrive)
+        memo[visites, arrive] = Distance(arrive, depart)
+  
+    else : 
+        min_cout =+infini
+        ville_min := string
 
-rec_tsp (ville_a str, visitees [str], memo)
+        for pays dans visites :
+            if pays != depart & memo_cout[visites privé de pays, pays] + 
+            Distance(ville, arrivee) < min_cout :
+                min_cout=memo_cout[visites privé de pays, pays] + Distance(pays, arrive)
+                pays_min = pays
+        
+        memo_cout[visites , arrive] = min_cout
+
+            
+        
+
