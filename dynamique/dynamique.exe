@@ -1,0 +1,8 @@
+memo := [[str]] coût
+
+c_dynamique ( ville str , visitees [string ])
+
+meilleur de celles visitees + arriveer à la nôtre 
+
+
+rec_tsp (ville_a str, visitees [str], memo)
