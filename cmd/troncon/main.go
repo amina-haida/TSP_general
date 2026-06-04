@@ -10,11 +10,11 @@ var chemin []string
 func main() {
 
 	troncon.Reseau_ferre = []troncon.Troncon{
-		{"1", "2"},
-		{"2", "3"},
-		{"2", "4"},
-		{"1", "5"},
-		{"1", "6"},
+		{Depart : "1", Arrivee:  "2"},
+		{Depart :"2", Arrivee: "3"},
+		{Depart :"2", Arrivee: "4"},
+		{Depart :"1",Arrivee:  "5"},
+		{Depart : "1",Arrivee:  "6"},
 	}
 	
 	troncon.Troncons_rec("1", "1")

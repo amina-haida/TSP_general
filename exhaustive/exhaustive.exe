@@ -22,9 +22,9 @@ fonction calcul_longueur (depart :str , arrivee:str , longueur, donnees : [str]C
 
 algorithme tsp1()--> chemin
 
-Liste_chemin := [[string]]{longueur = len(donnees)!}
+Liste_chemin := [string]{longueur = len(donnees)!}
 meilleur_cout := float
-meilleur_chemin := [[string]]
+meilleur_chemin := [string]{longueur = len(donnees)}
 
 calcul_longueur(depart, arrivee, longueur, donnees, chemin , visitees, Liste_chemin )
 
