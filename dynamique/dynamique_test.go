@@ -54,6 +54,20 @@ func Test_pays(t *testing.T) {
 
 
 func Test_enlever(t *testing.T){
-	
+	etat := Etat{
+        visites: "101",
+        arrive:  "FR",
+    }
+	donnees := map[string]donnees.Coordonnees {
+		"FR": {Latitude : 46.227638, Longitude: 2.213749},
+		"GA": {Latitude :-0.803689, Longitude:  11.609444},
+		"GB": {Latitude : 55.378051, Longitude: -3.435973},
+	}
+	liste_pays := Makelist(donnees)
+	etat2 := Etat{ visites : "001", arrive : "FR"}
+
+	if enlever(etat, "FR") != etat2{
+		t.Fatalf("attendu pas ce qu'on a eu")
+	}
 }
 
