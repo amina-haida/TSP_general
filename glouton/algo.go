@@ -15,6 +15,16 @@ func Distance(d1 string, d2 string, listePays map[string]donnees.Coordonnees) fl
 	return dx*dx + dy*dy
 }
 
+func Cout(trajet []string, listePays map[string]donnees.Coordonnees) float64 {
+	total := 0.0
+
+	for i := 0; i < len(trajet)-1; i++ {
+		total += Distance(trajet[i], trajet[i+1], listePays)
+	}
+
+	return total
+}
+
 func PlusProche(actuel string, nonVisites map[string]donnees.Coordonnees) string {
 	meilleur := ""
 	meilleureDistance := math.Inf(1)
@@ -61,12 +71,3 @@ func Fonc_glouton(depart string, pays map[string]donnees.Coordonnees) []string {
 	return visites
 }
 
-func Cout(trajet []string, listePays map[string]donnees.Coordonnees) float64 {
-	total := 0.0
-
-	for i := 0; i < len(trajet)-1; i++ {
-		total += Distance(trajet[i], trajet[i+1], listePays)
-	}
-
-	return total
-}

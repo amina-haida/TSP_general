@@ -259,6 +259,8 @@ var Pays = map[string]Coordonnees {
 }
 
 
+
+
 func Europe() map[string]Coordonnees {
 	paysEurope := make(map[string]Coordonnees)
 
@@ -272,6 +274,7 @@ func Europe() map[string]Coordonnees {
 
 	return paysEurope
 }
+
 
 func Minmax(objet map[string]Coordonnees) (minLat, maxLat, minLon, maxLon float64) {
 	minLat = math.Inf(1)
