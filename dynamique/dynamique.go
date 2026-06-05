@@ -10,13 +10,13 @@ import (
 
 func Makelist( donnees map[string]donnees.Coordonnees) ([]string){
 	var new []string
-	for pays,_ := range donnees {
+	for pays := range donnees {
 		new = append(new, pays)
 	}
 	return new
 }
 
-func Makeint(ensemble  map[string]string, liste []string)(string){
+func Makeint(ensemble  map[string]string, liste []string) string {
 	var nombre string
 	for index := range liste{
 		if ensemble[liste[index]] == "1" {

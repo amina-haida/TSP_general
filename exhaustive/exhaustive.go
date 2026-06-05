@@ -20,7 +20,7 @@ func F_exhaustive( depart string, arrivee string, longueur int, liste_pays map[s
 		chemin = append(chemin, depart)
 		F_exhaustive(depart, arrivee, longueur, liste_pays,chemin,visitees, Liste_chemin )
 	}else {
-		for pays,_ := range liste_pays {
+		for pays := range liste_pays {
 			if !slices.Contains(visitees,pays){
 				chemin = append(chemin, pays)
 				visitees = append(visitees, pays)
