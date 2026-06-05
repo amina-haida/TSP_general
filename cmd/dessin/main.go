@@ -1,20 +1,14 @@
 package main
 
 import (
-	"TSP_general/donnees"
 	"TSP_general/dessin"
+	"TSP_general/donnees"
+	"TSP_general/glouton"
 )
 
 func main() {
 	europe := donnees.Europe()
-	trajet := []string{
-    "FR", "GI", "MT", "PT", "ES", "AD", "VA", "IT", "MC", "GR",
-    "SM", "AL", "ME", "MK", "BA", "XK", "CH", "HR", "LI", "CY",
-    "SI", "RS", "JE", "GG", "AT", "BG", "LU", "BE", "HU", "CZ",
-    "DE", "RO", "NL", "SK", "TR", "IE", "IM", "MD", "PL", "GB",
-    "DK", "UA", "LT", "BY", "NO", "LV", "FO", "SE", "EE", "FI",
-    "FR",
-}
+	trajet := glouton.Fonc_glouton("FR", europe)
 
 	dessin.Dessiner_points(europe)
 
