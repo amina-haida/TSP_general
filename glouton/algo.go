@@ -5,21 +5,22 @@ import(
 	"TSP_general/donnees")
 
 
-func Distance(d1 string, d2 string, listePays map[string]donnees.Coordonnees) float64 {
-	p1 := listePays[d1]
-	p2 := listePays[d2]
+func Distance(p1, p2 donnees.Coordonnees) float64 {
 
 	dx := p2.Latitude - p1.Latitude
 	dy := p2.Longitude - p1.Longitude
 
-	return math.Sqrt(dx*dx + dy*dy)
+	return dx*dx + dy*dy
 }
 
 func Cout(trajet []string, listePays map[string]donnees.Coordonnees) float64 {
 	total := 0.0
 
 	for i := 0; i < len(trajet)-1; i++ {
-		total += Distance(trajet[i], trajet[i+1], listePays)
+		p1 := listePays[trajet[i]]
+		p2 := listePays[trajet[i+1]]
+
+		total += math.Sqrt(Distance(p1, p2))
 	}
 
 	return total
@@ -33,7 +34,7 @@ func PlusProche(actuel string,
 	meilleureDistance := math.Inf(1)
 
 	for nom := range nonVisites {
-		d := Distance(actuel, nom, listePays)
+		d := Distance(listePays[actuel], listePays[nom])
 
 		if d < meilleureDistance {
 			meilleureDistance = d
