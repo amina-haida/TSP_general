@@ -23,7 +23,7 @@ func Test_F_exhaustive(t *testing.T){
 	if len(Liste_chemin) != expected {
 		t.Errorf("il n'y a pas tous les chemins")
 	}
-
+	
 	for index := range Liste_chemin{
 		if Liste_chemin[index][0] != "FR" || Liste_chemin[index][len(Liste_chemin[index])-1]!="FR" || len(Liste_chemin[index])!=6 {
 			t.Errorf("Ce n'est pas une boucle")

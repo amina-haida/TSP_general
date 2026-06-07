@@ -36,5 +36,3 @@ cout_dynamique( ensemble_visites ensemble ,depart, arrive string, memo_cout [Eta
             return min_cout
                 
             
-        
-

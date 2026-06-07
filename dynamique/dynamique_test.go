@@ -2,7 +2,8 @@ package dynamique
 
 import ("testing"
 		"TSP_general/donnees"
-	"slices")
+	"slices"
+		"TSP_general/glouton")
 
 
 
@@ -66,8 +67,34 @@ func Test_enlever(t *testing.T){
 	liste_pays := Makelist(donnees)
 	etat2 := Etat{ visites : "001", arrive : "FR"}
 
-	if enlever(etat, "FR") != etat2{
+	if enlever(etat, "FR", liste_pays) != etat2{
 		t.Fatalf("attendu pas ce qu'on a eu")
 	}
 }
 
+func Test_Cout_dynamique(t *testing.T){
+
+	memo_cout = make(map[Etat]float64)
+	memo_pred = make(map[Etat]string)
+	etat := Etat{
+        visites: "000",
+        arrive:  "FR",
+    }
+
+	donnees2 := map[string]donnees.Coordonnees {
+		"FR": {Latitude : 46.227638, Longitude: 2.213749},
+		"GA": {Latitude :-0.803689, Longitude:  11.609444},
+		"GB": {Latitude : 55.378051, Longitude: -3.435973},
+	}
+	liste_pays := Makelist(donnees2)
+
+	res:= Cout_dynamique(etat, "GA", liste_pays)
+
+	res_attendu := glouton.Distance("GA", "FR", donnees.Pays )
+
+	if res != res_attendu {
+		t.Fatalf("attendu pas ce qu'on a eu")
+	}
+
+
+}
