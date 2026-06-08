@@ -7,8 +7,8 @@ import (
 
 func Test_F_exhaustive(t *testing.T){
 	var Liste_chemin [][]string
-	var chemin  []string
-	var visitees  []string
+
+
 
 	liste_pays := make(map[string]donnees.Coordonnees, 0 )
 	liste_pays["FR"] = donnees.Europe()["FR"]
@@ -17,11 +17,14 @@ func Test_F_exhaustive(t *testing.T){
 	liste_pays["IT"] = donnees.Europe()["IT"]
 	liste_pays["LI"] = donnees.Europe()["LI"]
 
-	expected := 24
 
-	F_exhaustive("FR", "FR", len(liste_pays) , liste_pays, chemin, visitees, &Liste_chemin)
-	if len(Liste_chemin) != expected {
-		t.Errorf("il n'y a pas tous les chemins")
+	Liste_chemin = F_exhaustive("FR", liste_pays)
+	if len(Liste_chemin) != 24 {
+		 t.Fatalf(
+            "nombre de chemins incorrect : obtenu %d, attendu %d",
+            len(Liste_chemin),
+            24,
+        )
 	}
 	
 	for index := range Liste_chemin{

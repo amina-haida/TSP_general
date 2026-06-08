@@ -13,5 +13,5 @@ func main() {
 	tour := glouton.Fonc_glouton("FR", europe)
 
 	fmt.Println(tour)
-	fmt.Println(glouton.Cout(tour, europe))
+	fmt.Println(glouton.Cout(tour))
 }

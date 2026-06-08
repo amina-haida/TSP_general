@@ -38,15 +38,10 @@ func TestGlouton(t *testing.T) {
 
 func TestCout(t *testing.T) {
 
-	p := map[string]donnees.Coordonnees{
-		"A": {Latitude: 0, Longitude: 0},
-		"B": {Latitude: 3, Longitude: 4},
-		"C": {Latitude: 6, Longitude: 0},
-	}
+	
+	cycle := []string{"FR", "GA", "RU", "ZM"}
 
-	cycle := []string{"A", "B", "C", "A"}
-
-	c := Cout(cycle, p)
+	c := Cout(cycle)
 
 	if c <= 0 {
 		t.Error("le coût doit être positif")
