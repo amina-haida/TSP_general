@@ -90,7 +90,7 @@ func Test_Cout_dynamique(t *testing.T){
 
 	res:= Cout_dynamique(etat, "GA", liste_pays)
 
-	res_attendu := glouton.Distance("GA", "FR", donnees.Pays )
+	res_attendu := glouton.Distance(donnees.Pays["GA"], donnees.Pays["FR"])
 
 	if res != res_attendu {
 		t.Fatalf("attendu pas ce qu'on a eu")
