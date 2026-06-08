@@ -13,8 +13,8 @@ var memo_pred map[Etat]string
 
 
 type Etat struct {
-	visites string
-	arrive string
+	Visites string
+	Arrive string
 }
 
 func Makelist( donnees map[string]donnees.Coordonnees) ([]string){
@@ -28,13 +28,13 @@ func Makelist( donnees map[string]donnees.Coordonnees) ([]string){
 
 
 func longueur(etat Etat) int {
-    return strings.Count(etat.visites, "1")
+    return strings.Count(etat.Visites, "1")
 }
 
 func pays(etat Etat, liste_pays []string) ([]string){
 	var new []string
-	for index := range etat.visites{
-		if etat.visites[index] == '1' {
+	for index := range etat.Visites{
+		if etat.Visites[index] == '1' {
 			new = append(new, liste_pays[index])
 
 		}
@@ -53,13 +53,13 @@ func enlever(etat Etat, pays string, liste_pays []string)(Etat){
 	var new string
 	for j := range liste_pays{
 		if j != index {
-			new = new + string(etat.visites[j])
+			new = new + string(etat.Visites[j])
 		}else {
 			new = new + "0"
 		}
 	}
 
-	new_etat := Etat{ visites: new, arrive: pays}
+	new_etat := Etat{ Visites: new, Arrive: pays}
 	return new_etat
 }
 
@@ -71,7 +71,7 @@ func enlever(etat Etat, pays string, liste_pays []string)(Etat){
 
 func Cout_dynamique( etat Etat ,depart string, liste_pays []string) (float64){
     if longueur(etat) == 0 {
-        res := glouton.Distance( donnees.Pays[depart],  donnees.Pays[etat.arrive])
+        res := glouton.Distance( donnees.Pays[depart],  donnees.Pays[etat.Arrive])
 		memo_cout[etat] = res
         return res
 	}else {
@@ -85,10 +85,10 @@ func Cout_dynamique( etat Etat ,depart string, liste_pays []string) (float64){
 			_, exists := memo_cout[etat1]
 			var res1 float64
 			if exists {
-			 res1 = memo_cout[etat1] + glouton.Distance( donnees.Pays[pays],donnees.Pays[etat.arrive])
+			 res1 = memo_cout[etat1] + glouton.Distance( donnees.Pays[pays],donnees.Pays[etat.Arrive])
 			
 			}else {
-				res1 = Cout_dynamique( etat1, depart, liste_pays) + glouton.Distance( donnees.Pays[pays],donnees.Pays[etat.arrive])
+				res1 = Cout_dynamique( etat1, depart, liste_pays) + glouton.Distance( donnees.Pays[pays],donnees.Pays[etat.Arrive])
 
 			}
             if res1 < min_cout {
