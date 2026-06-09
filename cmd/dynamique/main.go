@@ -4,10 +4,14 @@ import (
 	"fmt"
 	"TSP_general/dynamique"
 	"TSP_general/donnees"
+	"time"
 
 )
 
 func main(){
+
+	start := time.Now()
+
 
 	map_pays := make(map[string]donnees.Coordonnees, 0)
 	map_pays["FR"] = donnees.Europe()["FR"]
@@ -35,5 +39,8 @@ func main(){
 }
 		chemin_min = append(chemin_min, "FR")
 		fmt.Println("Le chemin optimal est : ", chemin_min, " avec un coût de : ", cout_min)
+		duree := time.Since(start)
+
+		fmt.Println("le programme a pris :", duree)
 	}
 
