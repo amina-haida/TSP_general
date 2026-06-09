@@ -2,7 +2,9 @@ package branchandbound
 
 import(
 	"TSP_general/donnees"
-	"slices")
+	"slices"
+	"math"
+	"TSP_general/glouton")
 
 
 
@@ -10,8 +12,9 @@ var Liste_chemin [][]string
 var chemin []string
 var visites map[string]bool
 var map_pays map[string]donnees.Coordonnees
+var min float64
 
-func F_exhaustive_privee( depart string,  Liste_chemin *[][]string, chemin []string,  visites map[string]bool ) {
+func F_exhaustive_privee( depart string,  Liste_chemin *[][]string, chemin []string,  visites map[string]bool, min float64 ) {
 		if len(chemin) == len(map_pays) {
 			chemin = append(chemin, depart)
 			new_chemin := make([]string, len(chemin))
@@ -24,10 +27,15 @@ func F_exhaustive_privee( depart string,  Liste_chemin *[][]string, chemin []str
 			for pays := range map_pays {
 				if !visites[pays]{
 					chemin = append(chemin, pays)
-					visites[pays]=true
-					F_exhaustive_privee(depart,  Liste_chemin , chemin , visites )
-					chemin = slices.Delete(chemin, len(chemin)-1, len(chemin))
-					visites[pays]=false
+					c := glouton.Cout(chemin)
+					if min > c{
+						min = c
+						visites[pays]=true
+						F_exhaustive_privee(depart,  Liste_chemin , chemin , visites, min )
+						chemin = slices.Delete(chemin, len(chemin)-1, len(chemin))
+						visites[pays]=false
+					}
+					
 				}
 			}
 		}
@@ -43,8 +51,8 @@ func F_exhaustive( depart string, lp map[string]donnees.Coordonnees) [][]string{
 	chemin := []string{depart}
 	visites := make(map[string]bool)
 	visites[depart]=true
-
-	F_exhaustive_privee(depart,  &Liste_chemin , chemin , visites)
+	min := glouton.Cout()
+	F_exhaustive_privee(depart,  &Liste_chemin , chemin , visites,min)
 	return Liste_chemin
 	
 }
