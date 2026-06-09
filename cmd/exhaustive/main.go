@@ -4,11 +4,13 @@ import ("fmt"
 	"TSP_general/exhaustive"
 	"TSP_general/donnees"
 	"TSP_general/glouton"
+	"time"
 )
 
 
 func main(){
 
+	start := time.Now()
 	var Liste_chemin [][]string
 	var meilleur_cout float64
 	var meilleur_chemin  []string
@@ -34,5 +36,9 @@ func main(){
 		}
 	}
 	fmt.Println( meilleur_chemin)
+	
+	duree := time.Since(start)
+
+	fmt.Println("le programme a pris :", duree)
 
 }
