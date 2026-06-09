@@ -37,7 +37,7 @@ func F_exhaustive_privee( depart string,  Liste_chemin *[][]string, chemin []str
 func F_exhaustive( depart string, lp map[string]donnees.Coordonnees) [][]string{
 
 	map_pays = lp
-	longueur = len(lp)
+
 
 	Liste_chemin = make([][]string, 0)
 	chemin := []string{depart}
