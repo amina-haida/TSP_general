@@ -8,8 +8,8 @@ import (
 	"slices"
 )
 
-var memo_cout map[Etat]float64
-var memo_pred map[Etat]string
+var Memo_cout map[Etat]float64
+var Memo_pred map[Etat]string
 
 
 type Etat struct {
@@ -43,7 +43,7 @@ func pays(etat Etat, liste_pays []string) ([]string){
 		return new
 	}
 
-func enlever(etat Etat, pays string, liste_pays []string)(Etat){
+func Enlever(etat Etat, pays string, liste_pays []string)(Etat){
 	index := 0
 	for i := range liste_pays {
 		if liste_pays[i] == pays {
@@ -72,20 +72,20 @@ func enlever(etat Etat, pays string, liste_pays []string)(Etat){
 func Cout_dynamique( etat Etat ,depart string, liste_pays []string) (float64){
     if longueur(etat) == 0 {
         res := glouton.Distance( donnees.Pays[depart],  donnees.Pays[etat.Arrive])
-		memo_cout[etat] = res
+		Memo_cout[etat] = res
         return res
 	}else {
         min_cout := math.Inf(1)
-		pays_min := "FR"
+		pays_min := ""
 		pays_visites := pays(etat, liste_pays)
 
-        for index := range len(pays_visites) {
+        for index := range pays_visites {
 			pays := pays_visites[index]
-			etat1 :=  enlever(etat, pays, liste_pays)
-			_, exists := memo_cout[etat1]
+			etat1 :=  Enlever(etat, pays, liste_pays)
+			_, exists := Memo_cout[etat1]
 			var res1 float64
 			if exists {
-			 res1 = memo_cout[etat1] + glouton.Distance( donnees.Pays[pays],donnees.Pays[etat.Arrive])
+			 res1 = Memo_cout[etat1] + glouton.Distance( donnees.Pays[pays],donnees.Pays[etat.Arrive])
 			
 			}else {
 				res1 = Cout_dynamique( etat1, depart, liste_pays) + glouton.Distance( donnees.Pays[pays],donnees.Pays[etat.Arrive])
@@ -97,8 +97,8 @@ func Cout_dynamique( etat Etat ,depart string, liste_pays []string) (float64){
 			}
 
 			} 
-            memo_cout[etat] = min_cout 
-			memo_pred[etat] = pays_min
+            Memo_cout[etat] = min_cout 
+			Memo_pred[etat] = pays_min
             return min_cout
             
         

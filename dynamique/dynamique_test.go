@@ -67,15 +67,35 @@ func Test_enlever(t *testing.T){
 	liste_pays := Makelist(donnees)
 	etat2 := Etat{ Visites : "001", Arrive : "FR"}
 
-	if enlever(etat, "FR", liste_pays) != etat2{
+	if Enlever(etat, "FR", liste_pays) != etat2{
 		t.Fatalf("attendu pas ce qu'on a eu")
 	}
-}
 
+	
+}
+func Test_enlever_arrive(t *testing.T) {
+    liste := []string{"FR","GA","GB"}
+
+    etat := Etat{
+        Visites: "101",
+        Arrive: "FR",
+    }
+
+    obtenu := Enlever(etat, "GB", liste)
+
+    attendu := Etat{
+        Visites: "100",
+        Arrive: "GB",
+    }
+
+    if obtenu != attendu {
+        t.Fatalf("attendu %+v, obtenu %+v", attendu, obtenu)
+    }
+}
 func Test_Cout_dynamique(t *testing.T){
 
-	memo_cout = make(map[Etat]float64)
-	memo_pred = make(map[Etat]string)
+	Memo_cout = make(map[Etat]float64)
+	Memo_pred = make(map[Etat]string)
 	etat := Etat{
         Visites: "000",
         Arrive:  "FR",
@@ -97,4 +117,25 @@ func Test_Cout_dynamique(t *testing.T){
 	}
 
 
+}
+
+func Test_Pred(t *testing.T) {
+
+    Memo_cout = make(map[Etat]float64)
+    Memo_pred = make(map[Etat]string)
+
+    liste := []string{"FR","GA","GB"}
+
+    etat := Etat{
+        Visites: "011",
+        Arrive: "FR",
+    }
+
+    Cout_dynamique(etat, "FR", liste)
+
+    pred := Memo_pred[etat]
+
+    if pred != "GA" {
+		t.Fatalf("attendu GA, obtenu %s", pred)
+	}
 }
