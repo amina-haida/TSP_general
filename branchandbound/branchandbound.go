@@ -34,7 +34,7 @@ func F_branchandbound_privee( depart string,  Liste_chemin *[][]string, chemin [
 					c := glouton.Cout(chemin)
 					if min > c{
 						visites[pays]=true
-						F_exhaustive_privee(depart,  Liste_chemin , chemin , visites )
+						F_branchandbound_privee(depart,  Liste_chemin , chemin , visites )
 						chemin = slices.Delete(chemin, len(chemin)-1, len(chemin))
 						visites[pays]=false
 					}
@@ -55,7 +55,7 @@ func F_branchandbound( depart string, lp map[string]donnees.Coordonnees) [][]str
 	visites := make(map[string]bool)
 	visites[depart]=true
 	min = glouton.Cout(glouton.Fonc_glouton(depart, lp))
-	F_exhaustive_privee(depart,  &Liste_chemin , chemin , visites)
+	F_branchandbound_privee(depart,  &Liste_chemin , chemin , visites)
 	return Liste_chemin
 	
 }
