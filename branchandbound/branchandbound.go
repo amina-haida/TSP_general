@@ -14,7 +14,7 @@ var map_pays map[string]donnees.Coordonnees
 var min float64
 
 
-func F_exhaustive_privee( depart string,  Liste_chemin *[][]string, chemin []string,  visites map[string]bool ) {
+func F_branchandbound_privee( depart string,  Liste_chemin *[][]string, chemin []string,  visites map[string]bool ) {
 		if len(chemin) == len(map_pays) {
 			chemin = append(chemin, depart)
 			new_chemin := make([]string, len(chemin))
@@ -45,7 +45,7 @@ func F_exhaustive_privee( depart string,  Liste_chemin *[][]string, chemin []str
 	}
 
 
-func F_exhaustive( depart string, lp map[string]donnees.Coordonnees) [][]string{
+func F_branchandbound( depart string, lp map[string]donnees.Coordonnees) [][]string{
 
 	map_pays = lp
 
