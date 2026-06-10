@@ -42,5 +42,28 @@ func main(){
 		duree := time.Since(start)
 
 		fmt.Println("le programme a pris :", duree)
+
+
+		a := [5]int {}
+		fmt.Println(a)
+
+		var b  *[5]int
+
+		b=&a
+		fmt.Println(*b)
+		
+		c := []int{}
+ 
+
+		c= append(c, 9)
+
+		d:=&c
+		*d= append(*d, 10)
+
+
+
+		fmt.Println(c, d)
+
+
 	}
 
