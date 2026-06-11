@@ -42,6 +42,5 @@ func main(){
 		duree := time.Since(start)
 
 		fmt.Println("le programme a pris :", duree)
-
 	}
 
