@@ -1,7 +1,7 @@
 package main
 
 import (
-	"TSP_general/Kruskal"
+	"TSP_general/kruskal"
 	"TSP_general/donnees"
 	"time"
 	"fmt"

@@ -25,7 +25,8 @@ func Poids_liste (donnees map[string]donnees.Coordonnees)([]Arrete){
 
 	for i := range Liste_pays {
 		for j:= i+1 ; j< len(Liste_pays); j++{
-			Liste_Arrete = append(Liste_Arrete, Arrete{Poids : glouton.Distance(donnees[Liste_pays[i]], donnees[Liste_pays[j]]), Depart : Liste_pays[i], Arrivee : Liste_pays[j] } )
+			Liste_Arrete = append(Liste_Arrete, Arrete{Poids : glouton.Distance(donnees[Liste_pays[i]], 
+				donnees[Liste_pays[j]]), Depart : Liste_pays[i], Arrivee : Liste_pays[j] } )
 		}
 	}
 
@@ -99,8 +100,9 @@ func Kruskal_privee( donnees map[string]donnees.Coordonnees) ([]Arrete){
 		if R[Arrete_triee[i].Depart] != R[Arrete_triee[i].Arrivee] {
 
 			Chemin = append(Chemin, Arrete_triee[i])
+			stock := R[Arrete_triee[i].Arrivee]
 			for pays := range donnees {
-				if R[pays] == R[Arrete_triee[i].Arrivee]{
+				if R[pays] == stock{
 					R[pays] = Arrete_triee[i].Depart
 				}
 			}
