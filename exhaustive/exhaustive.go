@@ -9,9 +9,9 @@ import(
 var Liste_chemin [][]string
 var chemin []string
 var visites map[string]bool
-var map_pays map[string]donnees.Coordonnees
 
-func F_exhaustive_privee( depart string,  Liste_chemin *[][]string, chemin []string,  visites map[string]bool ) {
+
+func F_exhaustive_privee( depart string,  Liste_chemin *[][]string, chemin []string,  visites map[string]bool, map_pays map[string]donnees.Coordonnees ) {
 		if len(chemin) == len(map_pays) {
 			chemin = append(chemin, depart)
 			new_chemin := make([]string, len(chemin))
@@ -25,7 +25,7 @@ func F_exhaustive_privee( depart string,  Liste_chemin *[][]string, chemin []str
 				if !visites[pays]{
 					chemin = append(chemin, pays)
 					visites[pays]=true
-					F_exhaustive_privee(depart,  Liste_chemin , chemin , visites )
+					F_exhaustive_privee(depart,  Liste_chemin , chemin , visites, map_pays )
 					chemin = slices.Delete(chemin, len(chemin)-1, len(chemin))
 					visites[pays]=false
 				}
@@ -34,9 +34,7 @@ func F_exhaustive_privee( depart string,  Liste_chemin *[][]string, chemin []str
 	}
 
 
-func F_exhaustive( depart string, lp map[string]donnees.Coordonnees) [][]string{
-
-	map_pays = lp
+func F_exhaustive( depart string, map_pays map[string]donnees.Coordonnees) [][]string{
 
 
 	Liste_chemin = make([][]string, 0)
@@ -44,7 +42,7 @@ func F_exhaustive( depart string, lp map[string]donnees.Coordonnees) [][]string{
 	visites := make(map[string]bool)
 	visites[depart]=true
 
-	F_exhaustive_privee(depart,  &Liste_chemin , chemin , visites)
+	F_exhaustive_privee(depart,  &Liste_chemin , chemin , visites, map_pays)
 	return Liste_chemin
 	
 }
