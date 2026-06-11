@@ -1,5 +1,11 @@
 package opt_glouton
 
+import (
+	"TSP_general/donnees"
+
+)
+
+
 func orientation(a, b, c donnees.Coordonnees) float64 {
 	return (b.Latitude-a.Latitude)*(c.Longitude-a.Longitude) -
 		(b.Longitude-a.Longitude)*(c.Latitude-a.Latitude)
@@ -24,7 +30,7 @@ func RetireCroisements(trajet []string, pays map[string]donnees.Coordonnees) []s
 
 	n := len(trajet)
 
-	amélio := true
+	amelio := true
 
 	for amelio {
 
@@ -41,8 +47,8 @@ func RetireCroisements(trajet []string, pays map[string]donnees.Coordonnees) []s
 					continue
 				}
 
-				c := pays[tour[j]]
-				d := pays[tour[j+1]]
+				c := pays[trajet[j]]
+				d := pays[trajet[j+1]]
 
 				if croisement(a, b, c, d) {
 
@@ -53,7 +59,7 @@ func RetireCroisements(trajet []string, pays map[string]donnees.Coordonnees) []s
 				}
 			}
 
-			if amelioration {
+			if amelio {
 				break
 			}
 		}
