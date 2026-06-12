@@ -17,7 +17,7 @@ type  Arrete struct{
 }
 
 
-func Poids_liste (donnees map[string]donnees.Coordonnees)([]Arrete){
+func Poids_liste(donnees map[string]donnees.Coordonnees)([]Arrete){
 
 	Liste_pays := dynamique.Makelist(donnees ) 
 
@@ -114,7 +114,7 @@ func Kruskal_privee( donnees map[string]donnees.Coordonnees) ([]Arrete){
 
 }
 
-func Kruskal (donnees map[string]donnees.Coordonnees )[]string{
+func Kruskal(donnees map[string]donnees.Coordonnees )[]string{
 
 	Chemin := Kruskal_privee(donnees)
 	Chemin_pays := make([]string,0)
