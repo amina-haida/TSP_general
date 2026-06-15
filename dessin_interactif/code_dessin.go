@@ -1,7 +1,6 @@
 package dessin_interactif
 
 import (
-	"fmt"
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/widget"
@@ -197,7 +196,8 @@ func CreerInterface(Points map[string]donnees.Coordonnees, départ string) fyne.
 			}
 			if choix == "Recuit simulé"{
 				trajet_ini := glouton.Fonc_glouton(départ, Points)
-				trajet = recuit_simule.Recuit(trajet_ini, 10)
+				trajetOpt := opt_glouton.RetireCroisements(trajet_ini, Points)
+				trajet = recuit_simule.Recuit(trajetOpt, 1000)
 			}
 
 			Redessiner(Points, départ, trajet, affichePoints, afficheTrajet)
@@ -213,12 +213,6 @@ func CreerInterface(Points map[string]donnees.Coordonnees, départ string) fyne.
 		bas,
 	)
 
-	widget.NewLabel(
-	fmt.Sprintf(
-		"Distance : %.2f km",
-		glouton.Cout(trajet),
-	),
-	)
 	dessin := container.NewWithoutLayout(afficheTrajet, affichePoints)
 
 	return container.NewBorder(

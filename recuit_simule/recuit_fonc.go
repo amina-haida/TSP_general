@@ -3,12 +3,14 @@ package recuit_simule
 import(
 	"math"
 	"math/rand"
+	"time"
 	"TSP_general/glouton"
 )
 
 var lambda = 0.995
 
 func Opt_aléatoire(trajet []string) []string {
+	rand.Seed(time.Now().UnixNano())
 	n := len(trajet)
 
 	a := rand.Intn(n-1)
@@ -32,8 +34,11 @@ func Opt_aléatoire(trajet []string) []string {
 
 
 func Recuit(trajet []string, n int) []string {
-	actuel := trajet
-	meilleur := actuel
+	actuel := make([]string, len(trajet))
+	copy(actuel, trajet)
+
+	meilleur := make([]string, len(trajet))
+	copy(meilleur, trajet)
 
 	T := 1000.0
 
@@ -44,15 +49,16 @@ func Recuit(trajet []string, n int) []string {
 		coutActuel := glouton.Cout(actuel)
 	
 
-		delta := coutNew - coutActuel
+		delta := float64(coutNew - coutActuel)
 
-		if coutNew <= coutActuel || rand.Float64() <= math.Exp(-delta/T) {
+		if delta < 0 || rand.Float64() < math.Exp(-delta/T) {
 			actuel = newTrajet
 		}
 
 		if glouton.Cout(actuel) < glouton.Cout(meilleur) {
 			meilleur = actuel
 		}
+
 		T *= lambda
 	}
 	return meilleur

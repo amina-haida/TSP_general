@@ -1,9 +1,9 @@
 package main
 
 import(
-	"fmt"
-	"TSP_general/glouton"
 	"TSP_general/donnees"
+	"TSP_general/glouton"
+	"TSP_general/opt_glouton"
 	"TSP_general/recuit_simule"
 )
 
@@ -11,7 +11,8 @@ import(
 func main() {
 	trajet := glouton.Fonc_glouton("FR", donnees.Pays)
 
-	trajetMin := recuit_simule.Recuit(trajet, 10)
+	trajetOpt := opt_glouton.RetireCroisements(trajet, donnees.Pays)
 
-	fmt.Println(trajetMin)
+	recuit_simule.Recuit(trajetOpt, 20)
+
 }
