@@ -10,6 +10,7 @@ import (
 	"TSP_general/donnees"
 	"TSP_general/glouton"
 	"TSP_general/opt_glouton"
+	"TSP_general/recuit_simule"
 	)
 
 const Longueur = 1000.0
@@ -183,7 +184,7 @@ func CreerInterface(Points map[string]donnees.Coordonnees, départ string) fyne.
 	})
 
 	selection := widget.NewSelect(
-		[]string{"Glouton", "2-opt"},
+		[]string{"Glouton", "2-opt", "Recuit simulé"},
 		func(choix string) {
 			afficheTrajet.RemoveAll()
 
@@ -193,6 +194,10 @@ func CreerInterface(Points map[string]donnees.Coordonnees, départ string) fyne.
 			if choix == "2-opt"{
 				trajet_ini := glouton.Fonc_glouton(départ, Points)
 				trajet = opt_glouton.RetireCroisements(trajet_ini, Points)
+			}
+			if choix == "Recuit simulé"{
+				trajet_ini := glouton.Fonc_glouton(départ, Points)
+				trajet = recuit_simule.Recuit(trajet_ini, 10)
 			}
 
 			Redessiner(Points, départ, trajet, affichePoints, afficheTrajet)
