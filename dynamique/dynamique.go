@@ -70,9 +70,10 @@ func Enlever(etat Etat, pays string)(Etat){
 
 
 
-func Cout_dynamique( etat Etat ,depart string) (float64){
+func Cout_dynamique( etat Etat, depart string) (float64){
     if longueur(etat) == 0 {
-        res := glouton.Distance( donnees.Pays[depart],  donnees.Pays[etat.Arrive])
+        res := glouton.Distance( donnees.Pays[depart], 
+			 donnees.Pays[etat.Arrive])
 		Memo_cout[etat] = res
         return res
 	}else {
