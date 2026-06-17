@@ -1,16 +1,18 @@
 package dessin_interactif
 
 import (
-	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/canvas"
-	"fyne.io/fyne/v2/widget"
-	"fyne.io/fyne/v2/container"
-	"image/color"
 	"TSP_general/donnees"
+	"TSP_general/dynamique"
 	"TSP_general/glouton"
 	"TSP_general/opt_glouton"
 	"TSP_general/recuit_simule"
-	)
+	"image/color"
+
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/widget"
+)
 
 const Longueur = 1000.0
 const Largeur = 600.0
@@ -183,7 +185,7 @@ func CreerInterface(Points map[string]donnees.Coordonnees, départ string) fyne.
 	})
 
 	selection := widget.NewSelect(
-		[]string{"Glouton", "2-opt", "Recuit simulé"},
+		[]string{"Glouton", "2-opt", "Recuit simulé", "Dynamique"},
 		func(choix string) {
 			afficheTrajet.RemoveAll()
 
@@ -199,7 +201,9 @@ func CreerInterface(Points map[string]donnees.Coordonnees, départ string) fyne.
 				trajetOpt := opt_glouton.RetireCroisements(trajet_ini, Points)
 				trajet = recuit_simule.Recuit(trajetOpt, 1000)
 			}
-
+			if choix == "Dynamique"{
+				trajet = dynamique.TSP_dynamique(Points, départ)
+						}
 			Redessiner(Points, départ, trajet, affichePoints, afficheTrajet)
 		},
 	)

@@ -1,4 +1,4 @@
-package main
+app.NewWithIDpackage main
 
 import(
 	"fyne.io/fyne/v2"

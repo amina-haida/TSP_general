@@ -106,3 +106,28 @@ func Cout_dynamique( etat Etat ,depart string) (float64){
 	}
 
 }
+
+func TSP_dynamique (map_pays map[string]donnees.Coordonnees, depart string)([]string){
+
+	Memo_pred = make(map[Etat]string)
+	Memo_cout = make(map[Etat]float64)
+
+	Liste_pays = Makelist(map_pays)
+
+	liste := strings.Repeat("1", len(Liste_pays))
+	etat := Etat{ Visites : liste , Arrive : depart }
+
+	Cout_dynamique(etat,"FR")
+
+	var chemin_min []string
+	chemin_min = append(chemin_min, depart)
+
+	for i :=0; i < len(Makelist(map_pays)); i++ {
+
+		pays := Memo_pred[etat]
+		chemin_min = append(chemin_min, pays)
+		etat = Enlever(etat, pays)
+}
+		chemin_min = append(chemin_min, "FR")
+		return chemin_min
+}

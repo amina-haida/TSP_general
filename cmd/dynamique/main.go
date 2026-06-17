@@ -26,25 +26,8 @@ func main(){
 	map_pays["PT"] = donnees.Europe()["PT"]
 	map_pays["SE"] = donnees.Europe()["SE"]
 
-	dynamique.Memo_pred = make(map[dynamique.Etat]string)
-	dynamique.Memo_cout = make(map[dynamique.Etat]float64)
-
-	dynamique.Liste_pays = dynamique.Makelist(map_pays)
-
-	etat := dynamique.Etat{ Visites : "11111111111", Arrive : "FR"}
-
-	cout_min := dynamique.Cout_dynamique(etat,"FR")
-
-	var chemin_min []string
-
-	for i :=0; i < len(dynamique.Makelist(map_pays)); i++ {
-
-		pays := dynamique.Memo_pred[etat]
-		chemin_min = append(chemin_min, pays)
-		etat = dynamique.Enlever(etat, pays)
-}
-		chemin_min = append(chemin_min, "FR")
-		fmt.Println("Le chemin optimal est : ", chemin_min, " avec un coût de : ", cout_min)
+		chemin_min := dynamique.TSP_dynamique(map_pays, "FR")
+		fmt.Println("Le chemin optimal est : ", chemin_min)
 		duree := time.Since(start)
 
 		fmt.Println("le programme a pris :", duree)
