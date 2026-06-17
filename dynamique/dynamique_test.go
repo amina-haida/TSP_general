@@ -1,9 +1,10 @@
 package dynamique
 
-import ("testing"
-		"TSP_general/donnees"
+import (
+	"testing"
+	"TSP_general/donnees"
 	"slices"
-		"TSP_general/glouton")
+	"TSP_general/glouton")
 
 
 
@@ -109,7 +110,7 @@ func Test_Cout_dynamique(t *testing.T){
 
 	res:= Cout_dynamique(etat, "GA")
 
-	res_attendu := glouton.Distance(donnees.Pays["GA"], donnees.Pays["FR"])
+	res_attendu := glouton.Distance(donnees.Monde["GA"], donnees.Monde["FR"])
 
 	if res != res_attendu {
 		t.Fatalf("attendu pas ce qu'on a eu")

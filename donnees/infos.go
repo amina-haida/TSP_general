@@ -10,7 +10,7 @@ type Coordonnees struct {
 }
 
 
-var Pays = map[string]Coordonnees {
+var Monde = map[string]Coordonnees {
 "AD": {42.546245, 1.601554},
 "AE": {23.424076, 53.847818},
 "AF": {33.93911, 67.709953},
@@ -264,7 +264,7 @@ var Pays = map[string]Coordonnees {
 func Europe() map[string]Coordonnees {
 	paysEurope := make(map[string]Coordonnees)
 
-	for nom, p := range Pays {
+	for nom, p := range Monde {
 		if p.Longitude > -10 && p.Longitude < 40 &&
 			p.Latitude >= 35 && p.Latitude < 70 {
 

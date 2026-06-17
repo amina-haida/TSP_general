@@ -8,7 +8,7 @@ import (
 
 func TestDistance(t *testing.T) {
 
-	d := Distance(donnees.Pays["FR"], donnees.Pays["FO"])
+	d := Distance(donnees.Monde["FR"], donnees.Monde["FO"])
 
 	expected := 328.667885068034
 

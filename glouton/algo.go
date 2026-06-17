@@ -17,8 +17,8 @@ func Cout(trajet []string) float64 {
 	total := 0.0
 
 	for i := 0; i < len(trajet)-1; i++ {
-		p1 := donnees.Pays[trajet[i]]
-		p2 := donnees.Pays[trajet[i+1]]
+		p1 := donnees.Monde[trajet[i]]
+		p2 := donnees.Monde[trajet[i+1]]
 
 		total += math.Sqrt(Distance(p1, p2))
 	}
