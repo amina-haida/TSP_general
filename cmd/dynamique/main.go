@@ -19,13 +19,19 @@ func main(){
 	map_pays["UK"] = donnees.Europe()["UK"]
 	map_pays["IT"] = donnees.Europe()["IT"]
 	map_pays["LI"] = donnees.Europe()["LI"]
+	map_pays["MT"] = donnees.Europe()["MT"]
+	map_pays["NL"] = donnees.Europe()["NL"]
+	map_pays["NO"] = donnees.Europe()["NO"]
+	map_pays["PL"] = donnees.Europe()["PL"]
+	map_pays["PT"] = donnees.Europe()["PT"]
+	map_pays["SE"] = donnees.Europe()["SE"]
 
 	dynamique.Memo_pred = make(map[dynamique.Etat]string)
 	dynamique.Memo_cout = make(map[dynamique.Etat]float64)
 
 	dynamique.Liste_pays = dynamique.Makelist(map_pays)
 
-	etat := dynamique.Etat{ Visites : "11111", Arrive : "FR"}
+	etat := dynamique.Etat{ Visites : "11111111111", Arrive : "FR"}
 
 	cout_min := dynamique.Cout_dynamique(etat,"FR")
 

@@ -17,7 +17,12 @@ func main() {
 	map_pays["UK"] = donnees.Europe()["UK"]
 	map_pays["IT"] = donnees.Europe()["IT"]
 	map_pays["LI"] = donnees.Europe()["LI"]
-
+	map_pays["MT"] = donnees.Europe()["MT"]
+	map_pays["NL"] = donnees.Europe()["NL"]
+	map_pays["NO"] = donnees.Europe()["NO"]
+	map_pays["PL"] = donnees.Europe()["PL"]
+	map_pays["PT"] = donnees.Europe()["PT"]
+	map_pays["SE"] = donnees.Europe()["SE"]
 	tour := glouton.Fonc_glouton("FR", map_pays)
 
 	fmt.Println(tour)

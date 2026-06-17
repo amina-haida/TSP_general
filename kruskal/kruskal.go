@@ -5,7 +5,7 @@ import(
 	"TSP_general/glouton"
 	"TSP_general/donnees"
 	"TSP_general/dynamique"
-	"slices"
+
 )
 
 type  Arrete struct{
@@ -115,24 +115,25 @@ func Kruskal_privee( donnees map[string]donnees.Coordonnees) ([]Arrete){
 }
 
 
-func Conversion_dico(Arbre_liste [Arrete])map[string][]string{
-	Arbre_dico := make(map[string][string])
+func Conversion_dico(Arbre_liste []Arrete)map[string][]string{
+	Arbre_dico := make(map[string][]string)
 	for i := range Arbre_liste{
 		Arrete:= Arbre_liste[i]
-		Arbre_dico[Arrete.depart] = append( Arbre_dico[Arrete.depart],Arrete.arrive)
-    	Arbre_dico[Arrete.arrive] = append( Arbre_dico[Arrete.arrive],Arrete.départ)
+		Arbre_dico[Arrete.Depart] = append( Arbre_dico[Arrete.Depart],Arrete.Arrivee)
+    	Arbre_dico[Arrete.Arrivee] = append( Arbre_dico[Arrete.Arrivee],Arrete.Depart)
 	}
 
 	return Arbre_dico
 }
 
 func Parcours(Arbre_dico map[string][]string, Chemin []string, sommet_actuel string, visites map[string]bool) []string{
+	Chemin = append(Chemin, sommet_actuel)
 	visites[sommet_actuel]=true
 	for i := range Arbre_dico[sommet_actuel]{
 		voisin := Arbre_dico[sommet_actuel][i]
 		if visites[voisin] == false {
 			Chemin = append(Chemin, voisin)
-			Parcours( Arbre_dico, Chemin, voisin)
+			Chemin = Parcours( Arbre_dico, Chemin, voisin, visites)
 		}
 	}
 return Chemin
@@ -141,5 +142,8 @@ return Chemin
 func Kruskal_TSP(depart string, donnees map[string]donnees.Coordonnees ) []string{
 	Arbre_liste := Kruskal_privee(donnees)
 	Arbre_dico := Conversion_dico(Arbre_liste)
-	return Parcours( depart, Arbre_dico)
+	Chemin := make([]string,0)
+	visites := make(map[string]bool)
+	Chemin = Parcours( Arbre_dico, Chemin, depart, visites)
+	return Chemin
 }
