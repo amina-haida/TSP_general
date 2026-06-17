@@ -1,6 +1,7 @@
 package dessin_interactif
 
 import (
+	"fmt"
 	"TSP_general/donnees"
 	"TSP_general/dynamique"
 	"TSP_general/glouton"
@@ -12,6 +13,7 @@ import (
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"fyne.io/fyne/v2/dialog"
 )
 
 const Longueur = 1000.0
@@ -121,26 +123,93 @@ func Redessiner(Points map[string]donnees.Coordonnees, depart string, trajet []s
 	afficheTrajet.Refresh()
 }
 
-func CreerInterface(Points map[string]donnees.Coordonnees, départ string) fyne.CanvasObject {
+func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 
 	afficheTrajet := container.NewWithoutLayout()
 	affichePoints := container.NewWithoutLayout()
 
-	Dessin_points(Points, affichePoints)
-
-	circle := canvas.NewCircle(color.Black)
-
-		x, y := coordonnees(Points[départ], Points)
-
-		circle.Move(fyne.NewPos(float32(x-5), float32(y-5)))
-		circle.Resize(fyne.NewSize(10, 10))
-
-		label := canvas.NewText(départ, color.Black)
-		label.Move(fyne.NewPos(float32(x+8), float32(y)))
-
-		affichePoints.Add(circle)
-
+	var Points map[string]donnees.Coordonnees
+	var selectionDepart *widget.Select
+	var depart string
 	var trajet []string
+
+	updateVilles := func() {
+		villes := make([]string, 0, len(Points))
+		for v := range Points {
+			villes = append(villes, v)
+		}
+
+		selectionDepart.Options = villes
+		selectionDepart.SetSelected("")
+		selectionDepart.Refresh()
+	}
+
+	selectionPays := widget.NewSelect(
+		[]string{
+			"Europe",
+			"Monde",
+		},
+		func(choix string) {
+			affichePoints.RemoveAll()
+
+			if choix == "Europe"{
+				Points = donnees.Europe()
+			}
+			if choix == "Monde"{
+				Points = donnees.Monde
+			}
+			Dessin_points(Points, affichePoints)
+
+			updateVilles()
+		},
+	)
+
+
+	selectionDepart = widget.NewSelect([]string{}, func(choix string) {
+		depart = choix
+	})
+
+	selectionAlgo := widget.NewSelect(
+		[]string{"Glouton", "2-opt", "Recuit simulé", "Dynamique"},
+		func(choix string) {
+			afficheTrajet.RemoveAll()
+
+			if choix == "Glouton"{
+				trajet = glouton.Fonc_glouton(depart, Points)
+			}
+			if choix == "2-opt"{
+				trajet_ini := glouton.Fonc_glouton(depart, Points)
+				trajet = opt_glouton.RetireCroisements(trajet_ini, Points)
+			}
+			if choix == "Recuit simulé"{
+				trajet_ini := glouton.Fonc_glouton(depart, Points)
+				trajetOpt := opt_glouton.RetireCroisements(trajet_ini, Points)
+				trajet = recuit_simule.Recuit(trajetOpt, 1000)
+			}
+			if choix == "Dynamique"{
+				if len(Points) < 25{
+					trajet = dynamique.TSP_dynamique(Points, depart)
+				}else{
+					dialog.ShowInformation(
+						"Erreur",
+						"Programmation dynamique limitée à 25 villes",
+						w,
+    				)
+				}
+			}
+			Redessiner(Points, depart, trajet, affichePoints, afficheTrajet)
+
+		},
+	)
+
+
+	distanceLabel := widget.NewLabel("Distance : ---")
+	distanceLabel.SetText(
+	fmt.Sprintf(
+		"Distance : %.0f km",
+		glouton.Cout(trajet),
+	),
+)
 
 
 	zoomPlus := widget.NewButton("+", func() {
@@ -149,7 +218,7 @@ func CreerInterface(Points map[string]donnees.Coordonnees, départ string) fyne.
 
 	Redessiner(
 		Points,
-		départ,
+		depart,
 		trajet,
 		affichePoints,
 		afficheTrajet,
@@ -160,55 +229,33 @@ func CreerInterface(Points map[string]donnees.Coordonnees, départ string) fyne.
 
 	Zoom /= 1.2
 
-	Redessiner(Points, départ, trajet, affichePoints, afficheTrajet)
+	Redessiner(Points, depart, trajet, affichePoints, afficheTrajet)
 	})
 
 	
 	gauche := widget.NewButton("←", func() {
 		OffsetX += 50
-		Redessiner(Points, départ, trajet, affichePoints, afficheTrajet)
+		Redessiner(Points, depart, trajet, affichePoints, afficheTrajet)
 	})
 
 	droite := widget.NewButton("→", func() {
 		OffsetX -= 50
-		Redessiner(Points, départ, trajet, affichePoints, afficheTrajet)
+		Redessiner(Points, depart, trajet, affichePoints, afficheTrajet)
 	})
 
 	haut := widget.NewButton("↑", func() {
 		OffsetY += 50
-		Redessiner(Points, départ, trajet, affichePoints, afficheTrajet)
+		Redessiner(Points, depart, trajet, affichePoints, afficheTrajet)
 	})
 
 	bas := widget.NewButton("↓", func() {
 		OffsetY -= 50
-		Redessiner(Points, départ, trajet, affichePoints, afficheTrajet)
+		Redessiner(Points, depart, trajet, affichePoints, afficheTrajet)
 	})
-
-	selection := widget.NewSelect(
-		[]string{"Glouton", "2-opt", "Recuit simulé", "Dynamique"},
-		func(choix string) {
-			afficheTrajet.RemoveAll()
-
-			if choix == "Glouton"{
-				trajet = glouton.Fonc_glouton(départ, Points)
-			}
-			if choix == "2-opt"{
-				trajet_ini := glouton.Fonc_glouton(départ, Points)
-				trajet = opt_glouton.RetireCroisements(trajet_ini, Points)
-			}
-			if choix == "Recuit simulé"{
-				trajet_ini := glouton.Fonc_glouton(départ, Points)
-				trajetOpt := opt_glouton.RetireCroisements(trajet_ini, Points)
-				trajet = recuit_simule.Recuit(trajetOpt, 1000)
-			}
-			if choix == "Dynamique"{
-				trajet = dynamique.TSP_dynamique(Points, départ)
-						}
-			Redessiner(Points, départ, trajet, affichePoints, afficheTrajet)
-		},
-	)
 	topBar := container.NewHBox(
-		selection,
+		selectionPays,
+		selectionDepart,
+		selectionAlgo,
 		zoomPlus,
 		zoomMoins,
 		gauche,
@@ -221,7 +268,7 @@ func CreerInterface(Points map[string]donnees.Coordonnees, départ string) fyne.
 
 	return container.NewBorder(
 		topBar,
-		nil,
+		distanceLabel,
 		nil,
 		nil,
 		dessin,

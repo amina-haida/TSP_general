@@ -72,8 +72,8 @@ func Enlever(etat Etat, pays string)(Etat){
 
 func Cout_dynamique( etat Etat, depart string) (float64){
     if longueur(etat) == 0 {
-        res := glouton.Distance( donnees.Pays[depart], 
-			 donnees.Pays[etat.Arrive])
+
+        res := glouton.Distance( donnees.Monde[depart],  donnees.Monde[etat.Arrive])
 		Memo_cout[etat] = res
         return res
 	}else {
@@ -87,10 +87,10 @@ func Cout_dynamique( etat Etat, depart string) (float64){
 			_, exists := Memo_cout[etat1]
 			var res1 float64
 			if exists {
-			 res1 = Memo_cout[etat1] + glouton.Distance( donnees.Pays[pays],donnees.Pays[etat.Arrive])
+			 res1 = Memo_cout[etat1] + glouton.Distance( donnees.Monde[pays],donnees.Monde[etat.Arrive])
 			
 			}else {
-				res1 = Cout_dynamique( etat1, depart) + glouton.Distance( donnees.Pays[pays],donnees.Pays[etat.Arrive])
+				res1 = Cout_dynamique( etat1, depart) + glouton.Distance( donnees.Monde[pays],donnees.Monde[etat.Arrive])
 
 			}
             if res1 < min_cout {
