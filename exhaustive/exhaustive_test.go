@@ -10,15 +10,15 @@ func Test_F_exhaustive(t *testing.T){
 
 
 
-	liste_pays := make(map[string]donnees.Coordonnees, 0 )
-	liste_pays["FR"] = donnees.Europe()["FR"]
-	liste_pays["ES"] = donnees.Europe()["ES"]
-	liste_pays["UK"] = donnees.Europe()["UK"]
-	liste_pays["IT"] = donnees.Europe()["IT"]
-	liste_pays["LI"] = donnees.Europe()["LI"]
+	dico_villes := make(map[string]donnees.Coordonnees, 0 )
+	dico_villes["FR"] = donnees.Europe()["FR"]
+	dico_villes["ES"] = donnees.Europe()["ES"]
+	dico_villes["UK"] = donnees.Europe()["UK"]
+	dico_villes["IT"] = donnees.Europe()["IT"]
+	dico_villes["LI"] = donnees.Europe()["LI"]
 
 
-	Liste_chemin = F_exhaustive("FR", liste_pays)
+	Liste_chemin = F_exhaustive("FR", dico_villes)
 	if len(Liste_chemin) != 24 {
 		 t.Fatalf(
             "nombre de chemins incorrect : obtenu %d, attendu %d",

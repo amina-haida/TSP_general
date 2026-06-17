@@ -10,18 +10,18 @@ import (
 
 var Memo_cout map[Etat]float64
 var Memo_pred map[Etat]string
-var Liste_pays []string
+var Liste_villes []string
 
 
 type Etat struct {
-	Visites string
-	Arrive string
+	Visitees string
+	Arrivee string
 }
 
 func Makelist( donnees map[string]donnees.Coordonnees) ([]string){
 	var new []string
-	for pays := range donnees {
-		new = append(new, pays)
+	for ville := range donnees {
+		new = append(new, ville)
 	}
 	slices.Sort(new)
 	return new
@@ -29,14 +29,14 @@ func Makelist( donnees map[string]donnees.Coordonnees) ([]string){
 
 
 func longueur(etat Etat) int {
-    return strings.Count(etat.Visites, "1")
+    return strings.Count(etat.Visitees, "1")
 }
 
-func paysvisites(etat Etat) ([]string){
+func villevisitees(etat Etat) ([]string){
 	var new []string
-	for index := range etat.Visites{
-		if etat.Visites[index] == '1' {
-			new = append(new, Liste_pays[index])
+	for index := range etat.Visitees{
+		if etat.Visitees[index] == '1' {
+			new = append(new, Liste_villes[index])
 
 		}
 	}
@@ -44,23 +44,23 @@ func paysvisites(etat Etat) ([]string){
 		return new
 	}
 
-func Enlever(etat Etat, pays string)(Etat){
+func Enlever(etat Etat, ville string)(Etat){
 	index := 0
-	for i := range Liste_pays {
-		if Liste_pays[i] == pays {
+	for i := range Liste_villes {
+		if Liste_villes[i] == ville {
 			index = i
 		}
 	}
 	var new string
-	for j := range Liste_pays{
+	for j := range Liste_villes{
 		if j != index {
-			new = new + string(etat.Visites[j])
+			new = new + string(etat.Visitees[j])
 		}else {
 			new = new + "0"
 		}
 	}
 
-	new_etat := Etat{ Visites: new, Arrive: pays}
+	new_etat := Etat{ Visitees: new, Arrivee: ville}
 	return new_etat
 }
 
@@ -73,13 +73,13 @@ func Enlever(etat Etat, pays string)(Etat){
 func Cout_dynamique( etat Etat, depart string) (float64){
     if longueur(etat) == 0 {
 
-        res := glouton.Distance( donnees.Monde[depart],  donnees.Monde[etat.Arrive])
+        res := glouton.Distance( donnees.Monde[depart],  donnees.Monde[etat.Arrivee])
 		Memo_cout[etat] = res
         return res
 	}else {
         min_cout := math.Inf(1)
 		pays_min := ""
-		pays_visites := paysvisites(etat)
+		pays_visites := villevisitees(etat)
 
         for index := range pays_visites {
 			pays := pays_visites[index]
@@ -87,10 +87,10 @@ func Cout_dynamique( etat Etat, depart string) (float64){
 			_, exists := Memo_cout[etat1]
 			var res1 float64
 			if exists {
-			 res1 = Memo_cout[etat1] + glouton.Distance( donnees.Monde[pays],donnees.Monde[etat.Arrive])
+			 res1 = Memo_cout[etat1] + glouton.Distance( donnees.Monde[pays],donnees.Monde[etat.Arrivee])
 			
 			}else {
-				res1 = Cout_dynamique( etat1, depart) + glouton.Distance( donnees.Monde[pays],donnees.Monde[etat.Arrive])
+				res1 = Cout_dynamique( etat1, depart) + glouton.Distance( donnees.Monde[pays],donnees.Monde[etat.Arrivee])
 
 			}
             if res1 < min_cout {
@@ -113,10 +113,10 @@ func TSP_dynamique (map_pays map[string]donnees.Coordonnees, depart string)([]st
 	Memo_pred = make(map[Etat]string)
 	Memo_cout = make(map[Etat]float64)
 
-	Liste_pays = Makelist(map_pays)
+	Liste_villes = Makelist(map_pays)
 
-	liste := strings.Repeat("1", len(Liste_pays))
-	etat := Etat{ Visites : liste , Arrive : depart }
+	liste := strings.Repeat("1", len(Liste_villes))
+	etat := Etat{ Visitees : liste , Arrivee : depart }
 
 	Cout_dynamique(etat,"FR")
 
@@ -125,9 +125,9 @@ func TSP_dynamique (map_pays map[string]donnees.Coordonnees, depart string)([]st
 
 	for i :=0; i < len(Makelist(map_pays)); i++ {
 
-		pays := Memo_pred[etat]
-		chemin_min = append(chemin_min, pays)
-		etat = Enlever(etat, pays)
+		ville := Memo_pred[etat]
+		chemin_min = append(chemin_min, ville)
+		etat = Enlever(etat, ville)
 }
 		chemin_min = append(chemin_min, "FR")
 		return chemin_min
