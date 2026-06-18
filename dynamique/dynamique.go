@@ -70,37 +70,37 @@ func Enlever(etat Etat, ville string)(Etat){
 
 
 
-func Cout_dynamique( etat Etat, depart string) (float64){
+func Cout_dynamique( etat Etat, ville_suivante string) (float64){
     if longueur(etat) == 0 {
 
-        res := glouton.Distance( donnees.Monde[depart],  donnees.Monde[etat.Arrivee])
+        res := glouton.Distance( donnees.Monde[ville_suivante],  donnees.Monde[etat.Arrivee])
 		Memo_cout[etat] = res
         return res
 	}else {
         min_cout := math.Inf(1)
-		pays_min := ""
-		pays_visites := villevisitees(etat)
+		ville_min := ""
+		villes_visitees := villevisitees(etat)
 
-        for index := range pays_visites {
-			pays := pays_visites[index]
-			etat1 :=  Enlever(etat, pays)
+        for index := range villes_visitees {
+			ville := villes_visitees[index]
+			etat1 :=  Enlever(etat, ville)
 			_, exists := Memo_cout[etat1]
 			var res1 float64
 			if exists {
-			 res1 = Memo_cout[etat1] + glouton.Distance( donnees.Monde[pays],donnees.Monde[etat.Arrivee])
+			 res1 = Memo_cout[etat1] + glouton.Distance( donnees.Monde[ville],donnees.Monde[etat.Arrivee])
 			
 			}else {
-				res1 = Cout_dynamique( etat1, depart) + glouton.Distance( donnees.Monde[pays],donnees.Monde[etat.Arrivee])
+				res1 = Cout_dynamique( etat1, ville_suivante) + glouton.Distance( donnees.Monde[ville],donnees.Monde[etat.Arrivee])
 
 			}
             if res1 < min_cout {
 				min_cout = res1 
-                pays_min = pays 
+                ville_min = ville 
 			}
 
 			} 
             Memo_cout[etat] = min_cout 
-			Memo_pred[etat] = pays_min
+			Memo_pred[etat] = ville_min
             return min_cout
             
         
@@ -108,27 +108,27 @@ func Cout_dynamique( etat Etat, depart string) (float64){
 
 }
 
-func TSP_dynamique (map_pays map[string]donnees.Coordonnees, depart string)([]string){
+func TSP_dynamique (dico_villes map[string]donnees.Coordonnees, depart string)([]string){
 
 	Memo_pred = make(map[Etat]string)
 	Memo_cout = make(map[Etat]float64)
 
-	Liste_villes = Makelist(map_pays)
+	Liste_villes = Makelist(dico_villes)
 
 	liste := strings.Repeat("1", len(Liste_villes))
 	etat := Etat{ Visitees : liste , Arrivee : depart }
 
-	Cout_dynamique(etat,"FR")
+	Cout_dynamique(etat,depart)
 
 	var chemin_min []string
 	chemin_min = append(chemin_min, depart)
 
-	for i :=0; i < len(Makelist(map_pays)); i++ {
+	for i :=0; i < len(Makelist(dico_villes)); i++ {
 
 		ville := Memo_pred[etat]
 		chemin_min = append(chemin_min, ville)
 		etat = Enlever(etat, ville)
 }
-		chemin_min = append(chemin_min, "FR")
+
 		return chemin_min
 }
