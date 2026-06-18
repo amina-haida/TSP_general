@@ -75,6 +75,7 @@ func Cout_dynamique( etat Etat, ville_suivante string) (float64){
 
         res := glouton.Distance( donnees.Monde[ville_suivante],  donnees.Monde[etat.Arrivee])
 		Memo_cout[etat] = res
+		Memo_pred[etat] = etat.Arrivee
         return res
 	}else {
         min_cout := math.Inf(1)
@@ -87,10 +88,10 @@ func Cout_dynamique( etat Etat, ville_suivante string) (float64){
 			_, exists := Memo_cout[etat1]
 			var res1 float64
 			if exists {
-			 res1 = Memo_cout[etat1] + glouton.Distance( donnees.Monde[ville],donnees.Monde[etat.Arrivee])
+			 res1 = Memo_cout[etat1] + glouton.Distance( donnees.Monde[ville],donnees.Monde[ville_suivante])
 			
 			}else {
-				res1 = Cout_dynamique( etat1, ville_suivante) + glouton.Distance( donnees.Monde[ville],donnees.Monde[etat.Arrivee])
+				res1 = Cout_dynamique( etat1, ville_suivante) + glouton.Distance( donnees.Monde[ville],donnees.Monde[ville_suivante])
 
 			}
             if res1 < min_cout {
