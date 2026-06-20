@@ -1,9 +1,12 @@
-package main 
+package main
 
-import ( "fmt"
+import (
 	"TSP_general/branchandbound"
 	"TSP_general/donnees"
-"time")
+	"TSP_general/glouton"
+	"fmt"
+	"time"
+)
 
 func main (){
 
@@ -28,6 +31,7 @@ func main (){
 	chemin_min := branchandbound.F_branchandbound("FR",map_villes)
 
 	duree := time.Since(start)
+	cout := glouton.Cout(chemin_min)
 
-	fmt.Println("Le chemin optimal est ", chemin_min, "calculé en", duree)
+	fmt.Println("Le chemin optimal est ", chemin_min, "calculé en", duree, "de cout", cout)
 }

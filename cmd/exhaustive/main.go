@@ -3,6 +3,7 @@ package main
 import (
 	"TSP_general/donnees"
 	"TSP_general/exhaustive"
+	"TSP_general/glouton"
 	"fmt"
 	"time"
 )
@@ -32,6 +33,8 @@ func main(){
 	
 	duree := time.Since(start)
 
-	fmt.Println("le programme a pris :", duree)
+	cout := glouton.Cout(meilleur_chemin)
+
+	fmt.Println("le programme a pris :", duree, "de cout", cout)
 
 }

@@ -29,7 +29,8 @@ func main() {
 	fmt.Println(glouton.Cout(tour))
 
 	duree := time.Since(start)
+	cout :=  glouton.Cout(tour)
 
-	fmt.Println("Le programme a duré :", duree)
+	fmt.Println("Le programme a duré :", duree, "est", tour, "de coût", cout)
 	
 }
