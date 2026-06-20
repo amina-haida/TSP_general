@@ -24,7 +24,7 @@ func Test_Makeliste(t *testing.T){
 
 func Test_longueur(t *testing.T) {
     etat := Etat{
-        Visitees: "101",
+        Pas_Visitees: "101",
         Arrivee:  "FR",
     }
 
@@ -37,7 +37,7 @@ func Test_longueur(t *testing.T) {
 
 func Test_paysvisites(t *testing.T) {
     etat := Etat{
-        Visitees: "101",
+        Pas_Visitees: "101",
         Arrivee:  "FR",
     }
 	donnees := map[string]donnees.Coordonnees {
@@ -48,7 +48,7 @@ func Test_paysvisites(t *testing.T) {
 
 	res := []string{"FR", "GB"}
 	Liste_villes =Makelist(donnees)
-	if !slices.Equal(res, villevisitees(etat)){
+	if !slices.Equal(res, villeavisitees(etat)){
 		    t.Fatalf("attendu pas ce qu'on a eu")
     }
 	}
@@ -56,7 +56,7 @@ func Test_paysvisites(t *testing.T) {
 
 func Test_enlever(t *testing.T){
 	etat := Etat{
-        Visitees: "101",
+        Pas_Visitees: "101",
         Arrivee:  "FR",
     }
 	donnees := map[string]donnees.Coordonnees {
@@ -65,7 +65,7 @@ func Test_enlever(t *testing.T){
 		"GB": {Latitude : 55.378051, Longitude: -3.435973},
 	}
 	Liste_villes = Makelist(donnees)
-	etat2 := Etat{ Visitees : "001", Arrivee : "FR"}
+	etat2 := Etat{ Pas_Visitees : "001", Arrivee : "FR"}
 
 	if Enlever(etat, "FR") != etat2{
 		t.Fatalf("attendu pas ce qu'on a eu")
@@ -77,14 +77,14 @@ func Test_enlever_arrive(t *testing.T) {
     Liste_villes = []string{"FR","GA","GB"}
 
     etat := Etat{
-        Visitees: "101",
+        Pas_Visitees: "101",
         Arrivee: "FR",
     }
 
     obtenu := Enlever(etat, "GB")
 
     attendu := Etat{
-        Visitees: "100",
+        Pas_Visitees: "100",
         Arrivee: "GB",
     }
 
@@ -97,7 +97,7 @@ func Test_Cout_dynamique(t *testing.T){
 	Memo_cout = make(map[Etat]float64)
 	Memo_pred = make(map[Etat]string)
 	etat := Etat{
-        Visitees: "000",
+        Pas_Visitees: "000",
         Arrivee:  "FR",
     }
 
@@ -127,7 +127,7 @@ func Test_Pred(t *testing.T) {
     Liste_villes = []string{"FR","GA","GB"}
 
     etat := Etat{
-        Visitees: "011",
+        Pas_Visitees: "011",
         Arrivee: "FR",
     }
 
