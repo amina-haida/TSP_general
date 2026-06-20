@@ -2,7 +2,8 @@ package exhaustive
 
 import(
 	"TSP_general/donnees"
-	"slices")
+	"slices"
+"TSP_general/glouton")
 
 
 	
@@ -17,9 +18,7 @@ func Recherche_chemins( depart string,  Liste_chemin *[][]string, chemin []strin
 			new_chemin := make([]string, len(chemin))
 			copy(new_chemin, chemin)   
 			*Liste_chemin = append(*Liste_chemin, new_chemin)
-			return
-		}else if len(dico_villes) < 2  {
-				return  
+			return  
 		}else {
 			for pays := range dico_villes {
 				if !visites[pays]{
@@ -45,4 +44,26 @@ func F_exhaustive( depart string, dico_villes map[string]donnees.Coordonnees) []
 	Recherche_chemins(depart,  &Liste_chemin , chemin , visites, dico_villes)
 	return Liste_chemin
 	
+}
+
+
+func Exhaustive(depart string, dico_villes map[string]donnees.Coordonnees)  []string{
+
+	var Liste_chemin [][]string
+	var meilleur_cout float64
+	var meilleur_chemin  []string
+	
+	Liste_chemin=F_exhaustive("FR", dico_villes)
+
+	meilleur_cout = glouton.Cout(Liste_chemin[0])
+	meilleur_chemin = Liste_chemin[0]
+	var c float64 
+	for i:=0; i< len(Liste_chemin); i++{
+		c = glouton.Cout(Liste_chemin[i])
+		if c < meilleur_cout{
+			meilleur_chemin = Liste_chemin[i] 
+			meilleur_cout = c
+		}
+	}
+	return meilleur_chemin
 }

@@ -1,19 +1,14 @@
-package main
+package main 
 
-import (
+import ( "fmt"
+	"TSP_general/branchandbound"
 	"TSP_general/donnees"
-	"TSP_general/exhaustive"
-	"fmt"
-	"time"
-)
+"time")
+
+func main (){
 
 
-func main(){
-
-	start := time.Now()
-
-
-		map_villes := make(map[string]donnees.Coordonnees, 0)
+	map_villes := make(map[string]donnees.Coordonnees, 0)
 	map_villes["FR"] = donnees.Europe()["FR"]
 	map_villes["ES"] = donnees.Europe()["ES"]
 	map_villes["UK"] = donnees.Europe()["UK"]
@@ -26,12 +21,13 @@ func main(){
 	map_villes["PT"] = donnees.Europe()["PT"]
 	map_villes["SE"] = donnees.Europe()["SE"]
 
-	meilleur_chemin := exhaustive.Exhaustive("FR", map_villes)
+		
+	start := time.Now()
 
-	fmt.Println( meilleur_chemin)
-	
+
+	chemin_min := branchandbound.F_branchandbound("FR",map_villes)
+
 	duree := time.Since(start)
 
-	fmt.Println("le programme a pris :", duree)
-
+	fmt.Println("Le chemin optimal est ", chemin_min, "calculé en", duree)
 }

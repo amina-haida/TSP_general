@@ -264,7 +264,15 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 		bas,
 	)
 
-	dessin := container.NewWithoutLayout(afficheTrajet, affichePoints)
+
+	background := canvas.NewRectangle(color.White)
+	background.Resize(fyne.NewSize(1000, 600))
+
+	dessin := container.NewWithoutLayout(
+		background,
+		afficheTrajet,
+		affichePoints,
+	)
 
 	return container.NewBorder(
 		topBar,

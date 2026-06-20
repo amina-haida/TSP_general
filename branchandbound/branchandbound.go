@@ -6,52 +6,66 @@ import (
 	"slices"
 )
 
-var Liste_chemin [][]string
-var chemin []string
-var visites map[string]bool
-var map_pays map[string]donnees.Coordonnees
 var min float64
 
-func F_branchandbound_privee(depart string, Liste_chemin *[][]string, chemin []string, visites map[string]bool) {
-	if len(chemin) == len(map_pays) {
-		chemin = append(chemin, depart)
-		new_chemin := make([]string, len(chemin))
-		copy(new_chemin, chemin)
-		*Liste_chemin = append(*Liste_chemin, new_chemin)
-		c := glouton.Cout(chemin)
-		if c < min {
+func F_branchandbound_privee(depart string, Liste_chemin [][]string, chemin []string, visites map[string]bool, dico_Villes map[string]donnees.Coordonnees, cout_courant float64) ([][] string){
+	if len(chemin) == len(dico_Villes) {
+			new_chemin := make([]string, len(chemin)+1)
+			copy(new_chemin, chemin)	
+			new_chemin = append(new_chemin, depart)
+		c := cout_courant + glouton.Distance(donnees.Monde[chemin[len(chemin)-1]],donnees.Monde[depart] )
+		if c <= min {
 			min = c
+			Liste_chemin = append(Liste_chemin, new_chemin)
+
 		}
-		return
-	} else if len(map_pays) < 2 {
-		return
+		chemin = slices.Delete(chemin, len(chemin)-1, len(chemin))
+			return Liste_chemin
 	} else {
-		for pays := range map_pays {
-			if !visites[pays] {
-				chemin = append(chemin, pays)
-				c := glouton.Cout(chemin)
-				if min > c {
-					visites[pays] = true
-					F_branchandbound_privee(depart, Liste_chemin, chemin, visites)
-					chemin = slices.Delete(chemin, len(chemin)-1, len(chemin))
-					visites[pays] = false
+		for ville := range dico_Villes {
+			if visites[ville] != true {
+
+				c := cout_courant + glouton.Distance(donnees.Monde[chemin[len(chemin)-1]],donnees.Monde[ville] )
+				if min >= c {
+					visites[ville] = true
+					chemin = append(chemin, ville)
+					Liste_chemin = F_branchandbound_privee(depart, Liste_chemin, chemin, visites, dico_Villes, c)
+					chemin = chemin[:len(chemin)-1]
+					visites[ville] = false
 				}
 
 			}
 		}
+		return Liste_chemin
 	}
 }
 
-func F_branchandbound(depart string, lp map[string]donnees.Coordonnees) [][]string {
+func F_branchandbound(depart string, dico_Villes map[string]donnees.Coordonnees) []string {
 
-	map_pays = lp
-
-	Liste_chemin = make([][]string, 0)
+	Liste_chemin := make([][]string, 0)
 	chemin := []string{depart}
 	visites := make(map[string]bool)
 	visites[depart] = true
-	min = glouton.Cout(glouton.Fonc_glouton(depart, lp))
-	F_branchandbound_privee(depart, &Liste_chemin, chemin, visites)
-	return Liste_chemin
+	min = glouton.Cout(glouton.Fonc_glouton(depart, dico_Villes))
+	Liste_chemin = F_branchandbound_privee(depart, Liste_chemin, chemin, visites, dico_Villes,0)
 
-}
+
+	var c float64 
+
+	if len(Liste_chemin) == 0 {
+		return glouton.Fonc_glouton(depart, dico_Villes)
+	}else {
+		meilleur_chemin := Liste_chemin[0]
+			for  i:=0; i< len(Liste_chemin); i++{
+		c = glouton.Cout(Liste_chemin[i])
+		if c < min{
+			meilleur_chemin = Liste_chemin[i] 
+			min = c
+		}
+
+	}
+
+return meilleur_chemin
+}}
+	
+
