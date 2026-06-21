@@ -109,7 +109,7 @@ func Cout_dynamique( etat Etat, depart string) (float64){
 
 }
 
-func TSP_dynamique (dico_villes map[string]donnees.Coordonnees, depart string)([]string){
+func TSP_dynamique (depart string, dico_villes map[string]donnees.Coordonnees)([]string){
 
 	Memo_pred = make(map[Etat]string)
 	Memo_cout = make(map[Etat]float64)

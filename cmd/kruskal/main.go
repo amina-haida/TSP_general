@@ -3,6 +3,7 @@ package main
 import (
 	"TSP_general/kruskal"
 	"TSP_general/donnees"
+	"TSP_general/glouton"
 	"time"
 	"fmt"
 )
@@ -28,6 +29,7 @@ func main (){
 		fmt.Println("Le chemin optimal est : ", chemin_min)
 
 		duree := time.Since(start)
-		fmt.Println("le programme a pris :", duree)
+		cout := glouton.Cout(chemin_min)
+		fmt.Println("le programme a pris :", duree,"de coût", cout)
 
 }

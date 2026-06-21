@@ -131,8 +131,7 @@ func Parcours(Arbre_dico map[string][]string, Chemin []string, sommet_actuel str
 	visites[sommet_actuel]=true
 	for i := range Arbre_dico[sommet_actuel]{
 		voisin := Arbre_dico[sommet_actuel][i]
-		if visites[voisin] == false {
-			Chemin = append(Chemin, voisin)
+		if visites[voisin] != true {
 			Chemin = Parcours( Arbre_dico, Chemin, voisin, visites)
 		}
 	}
@@ -145,5 +144,6 @@ func Kruskal_TSP(depart string, donnees map[string]donnees.Coordonnees ) []strin
 	Chemin := make([]string,0)
 	visites := make(map[string]bool)
 	Chemin = Parcours( Arbre_dico, Chemin, depart, visites)
+	Chemin = append(Chemin, depart)
 	return Chemin
 }
