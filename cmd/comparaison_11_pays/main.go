@@ -3,6 +3,7 @@ import (
 		"TSP_general/donnees"
 		"TSP_general/glouton"
 		"TSP_general/opt_glouton"
+		"TSP_general/recuit_simule"
 		"TSP_general/kruskal"
 		"TSP_general/exhaustive"
 		"TSP_general/dynamique"
@@ -69,7 +70,7 @@ algos_2 := []Algo{
 
 chemin_glouton := chemins[0]
 algos_3 := []Algo{    
-	{"opt_glouton",opt_glouton.RetireCroisements},
+	{"opt_glouton",opt_glouton.Fonc_optGlouton},
 
     {"recuit_simule", 	recuit_simule.Recuit},
 

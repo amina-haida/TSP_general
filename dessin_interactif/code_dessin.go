@@ -181,7 +181,7 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 				trajet = opt_glouton.Fonc_optGlouton(depart, Points)
 			}
 			if choix == "Recuit simulé"{
-				trajet = recuit_simule.Recuit(depart, Points, 1000)
+				trajet = recuit_simule.Recuit(depart, Points)
 			}
 			if choix == "Dynamique"{
 				if len(Points) < 25{
