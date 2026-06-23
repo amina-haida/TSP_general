@@ -71,6 +71,7 @@ func Strip(Points map[string]donnees.Coordonnees) []string{
 			trajet = append(trajet, ville_tri)
 		}
 	}
+	trajet = append(trajet, trajet[0])
 	return trajet	
 }
 
