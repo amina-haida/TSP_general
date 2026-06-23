@@ -1,7 +1,10 @@
 package donnees
 
 
-import "math"
+import ("math"
+"math/rand"
+	"TSP_general/dynamique"
+)
 
 
 type Coordonnees struct {
@@ -298,4 +301,24 @@ func Minmax(objet map[string]Coordonnees) (minLat, maxLat, minLon, maxLon float6
 	}
 
 	return
+}
+
+func Ville_aléatoire(n int)([]string){
+
+		liste_ville := dynamique.Makelist(Monde)
+		new_list := make([]string,0)
+		visites := make(map[string]bool)
+
+		for  len(new_list) <n { 
+			nb := rand.Intn(len(Monde))
+			ville := liste_ville[nb]
+			if visites[ville] != true {
+				visites[ville] = false 
+				new_list = append(new_list, ville)
+
+			}
+
+
+		}
+
 }

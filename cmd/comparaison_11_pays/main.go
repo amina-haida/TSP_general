@@ -11,12 +11,12 @@ import (
 		"fmt"
 		"math"
 		"time"
-		"math/rand"
 )
 
 func main(){
 
-	list_pays := dynamique.Makelist(donnees.Pays)
+	list_pays := dynamique.Makelist(donnees.Monde) 
+
 
 type Algo struct {
     Nom  string
