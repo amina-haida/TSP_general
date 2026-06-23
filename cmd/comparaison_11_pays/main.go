@@ -43,56 +43,89 @@ algos_2 := []Algo{
 
 }
 
-i:= 0
-for i<5{
-
-dicoVilles := donnees.Ville_aléatoire(15)
-
-
-
 depart := "FR"
 
 
 temps_15_pays := make(map[string][]time.Duration)
 
+i:= 0
+for i<5{
+	i++
+	dicoVilles := donnees.Ville_aléatoire(15)
+for _ , algo := range algos {
 
-var chemin []string
-	for _ , algo := range algos {
 		start := time.Now()
-		chemin = algo.fonction(depart, dicoVilles)
+		_ = algo.fonction(depart, dicoVilles)
 		duree := time.Since(start)
 		temps_15_pays[algo.Nom] = append(temps_15_pays[algo.Nom],duree)
 
-	}
+	}}
+i = 0
+moyenne := make(map[string]time.Duration) 
 
-moyenne := make(map[string]float64) 
 for nom, liste := range temps_15_pays{
-	moyenne[nom] = donnees.somme(liste) / 5
+	moyenne[nom] = donnees.Somme(liste)/5
 }
 
 for nom,temps := range moyenne {
 	fmt.Println("L'algo", nom," a une moyenne de ", temps)
 
 }
-cout := glouton.Cout(chemin)
 
 
-	temps_15_pays2 := make([]time.Duration,0)
-	exactitude := make([]float64,0)
-	chemins := make([][]string,0)
+temps_15_pays2 := make(map[string][]time.Duration)
+cout_15_pays2 := make(map[string][]float64)
 
-	for _, algo := range algos_2 {
+moyenne2_temps := make(map[string]time.Duration) 
+moyenne2_cout := make(map[string]float64) 
+
+liste_cout_exacts := make([]float64, 0)
+
+exactitude := make(map[string]float64) 
+
+for i<5{
+	i++
+dicoVilles := donnees.Ville_aléatoire(15)
+for _, algo := range algos_2 {
+
+
 		start := time.Now()
-		chemin2 := algo.fonction(depart, dicoVilles)
+		chemin := algo.fonction(depart, dicoVilles)
 		duree := time.Since(start)
-		temps_15_pays2 = append(temps_15_pays2,duree)
-		cout2 := glouton.Cout(chemin2)
-		chemins =  append(chemins, chemin2)
-		exactitude = append(exactitude, math.Abs(cout2-cout)/cout)
-	}
-	fmt.Println("Comparaison algo approché pour 11 pays", temps_15_pays2, exactitude)
+		temps_15_pays2[algo.Nom] = append(temps_15_pays2[algo.Nom],duree)
+		cout := glouton.Cout(chemin)
+		cout_15_pays2[algo.Nom] = append(cout_15_pays2[algo.Nom], cout)
+		cout_exact := glouton.Cout(branchandbound.F_branchandbound(depart, dicoVilles))
+		liste_cout_exacts = append(liste_cout_exacts, cout_exact)
+
+	
+	}}
+
+
+
+for nom, liste := range temps_15_pays2{
+	moyenne2_temps[nom] = donnees.Somme(liste)/5
 
 }
 
+for nom,temps := range moyenne2_temps {
+	fmt.Println("L'algo", nom," a une moyenne de ", temps)
+
+}
+
+
+
+for nom, liste := range cout_15_pays2{
+	moyenne2_cout[nom] = donnees.Somme2(liste)/5
+	
+}
+
+i=0
+for nom, cout2 := range moyenne2_cout{
+	cout_exact := liste_cout_exacts[i]
+	i++
+	exactitude[nom] = math.Abs(cout2-cout_exact) / cout_exact
+
+}
 
 }
