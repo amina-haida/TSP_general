@@ -2,7 +2,7 @@ package opt_glouton
 
 import (
 	"TSP_general/donnees"
-
+	"TSP_general/glouton"
 )
 
 
@@ -26,7 +26,8 @@ func echange(tour []string, i, j int) {
 	}
 }
 
-func RetireCroisements(trajet []string, pays map[string]donnees.Coordonnees) []string {
+func Fonc_optGlouton(depart string, pays map[string]donnees.Coordonnees) []string {
+	trajet := glouton.Fonc_glouton(depart, pays)
 
 	n := len(trajet)
 

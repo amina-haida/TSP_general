@@ -1,7 +1,9 @@
 package recuit_simule
 
 import (
+	"TSP_general/donnees"
 	"TSP_general/glouton"
+	"TSP_general/opt_glouton"
 	"math"
 	"math/rand"
 	"time"
@@ -32,7 +34,9 @@ func Opt_aléatoire(trajet []string) []string {
 	return newTrajet 
 } 
 	
-func Recuit(trajet []string, n int) []string { 
+func Recuit(depart string, pays map[string]donnees.Coordonnees , n int) []string { 
+	trajet := opt_glouton.Fonc_optGlouton(depart, pays)
+
 	actuel := make([]string, len(trajet)) 
 	copy(actuel, trajet) 
 	

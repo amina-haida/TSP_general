@@ -8,10 +8,10 @@ import (
 		"TSP_general/dynamique"
 		"TSP_general/branchandbound"
 
-	"fmt"
-	"math"
-	"time"
-	"math/rand"
+		"fmt"
+		"math"
+		"time"
+		"math/rand"
 )
 
 func main(){

@@ -11,7 +11,8 @@ func main() {
 
 	trajet := glouton.Fonc_glouton("FR", donnees.Monde)
 
-	trajet_new := opt_glouton.RetireCroisements(trajet, donnees.Monde)
+	trajet_new := opt_glouton.Fonc_optGlouton("FR", donnees.Monde)
+	
 	fmt.Println(trajet)
 	fmt.Println(trajet_new)
 
