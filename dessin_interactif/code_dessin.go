@@ -188,7 +188,7 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 			}
 			if choix == "Dynamique"{
 				if len(Points) < 25{
-					trajet = dynamique.TSP_dynamique(Points, depart)
+					trajet = dynamique.TSP_dynamique(depart, Points)
 				}else{
 					dialog.ShowInformation(
 						"Erreur",

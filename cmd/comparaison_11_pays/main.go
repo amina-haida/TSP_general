@@ -1,10 +1,11 @@
 package main 
 import (
-			"TSP_general/donnees"
+		"TSP_general/donnees"
 		"TSP_general/glouton"
-	"TSP_general/kruskal"
+		"TSP_general/opt_glouton"
+		"TSP_general/kruskal"
 		"TSP_general/exhaustive"
-			"TSP_general/dynamique"
+		"TSP_general/dynamique"
 		"TSP_general/branchandbound"
 
 	"fmt"
