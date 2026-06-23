@@ -48,9 +48,9 @@ depart := "FR"
 
 temps_15_pays := make(map[string][]time.Duration)
 
-i:= 0
-for i<5{
-	i++
+
+for i:=0; i<5;i++{
+
 	dicoVilles := donnees.Ville_aléatoire(15)
 for _ , algo := range algos {
 
@@ -60,7 +60,7 @@ for _ , algo := range algos {
 		temps_15_pays[algo.Nom] = append(temps_15_pays[algo.Nom],duree)
 
 	}}
-i = 0
+
 moyenne := make(map[string]time.Duration) 
 
 for nom, liste := range temps_15_pays{
@@ -83,8 +83,7 @@ liste_cout_exacts := make([]float64, 0)
 
 exactitude := make(map[string]float64) 
 
-for i<5{
-	i++
+for i := 0; i<5; i++{
 dicoVilles := donnees.Ville_aléatoire(15)
 for _, algo := range algos_2 {
 
@@ -120,7 +119,7 @@ for nom, liste := range cout_15_pays2{
 	
 }
 
-i=0
+i:=0
 for nom, cout2 := range moyenne2_cout{
 	cout_exact := liste_cout_exacts[i]
 	i++
