@@ -148,6 +148,7 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 		[]string{
 			"Europe",
 			"Monde",
+			"Aléatoire",
 		},
 		func(choix string) {
 			affichePoints.RemoveAll()
@@ -157,6 +158,9 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 			}
 			if choix == "Monde"{
 				Points = donnees.Monde
+			}
+			if choix == "Aléatoire"{
+				Points = donnees.ville_aléatoire(15)
 			}
 			Dessin_points(Points, affichePoints)
 
