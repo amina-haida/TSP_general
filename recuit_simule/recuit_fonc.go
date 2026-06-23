@@ -34,7 +34,8 @@ func Opt_aléatoire(trajet []string) []string {
 	return newTrajet 
 } 
 	
-func Recuit(depart string, pays map[string]donnees.Coordonnees , n int) []string { 
+func Recuit(depart string, pays map[string]donnees.Coordonnees) []string { 
+	n := 1000
 	trajet := opt_glouton.Fonc_optGlouton(depart, pays)
 
 	actuel := make([]string, len(trajet)) 
