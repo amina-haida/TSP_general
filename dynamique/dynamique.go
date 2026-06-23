@@ -5,7 +5,6 @@ import (
 	"TSP_general/glouton"
 	"math"
 	"strings"
-	"slices"
 )
 
 var Memo_cout map[Etat]float64
@@ -18,14 +17,6 @@ type Etat struct {
 	Arrivee string
 }
 
-func Makelist( donnees map[string]donnees.Coordonnees) ([]string){
-	var new []string
-	for ville := range donnees {
-		new = append(new, ville)
-	}
-	slices.Sort(new)
-	return new
-}
 
 
 func longueur(etat Etat) int {
@@ -114,7 +105,7 @@ func TSP_dynamique (depart string, dico_villes map[string]donnees.Coordonnees)([
 	Memo_pred = make(map[Etat]string)
 	Memo_cout = make(map[Etat]float64)
 
-	Liste_villes = Makelist(dico_villes)
+	Liste_villes = donnees.Makelist(dico_villes)
 
 	liste := strings.Repeat("1", len(Liste_villes))
 	etat := Etat{ Pas_Visitees : liste , Arrivee : depart }
@@ -125,7 +116,7 @@ func TSP_dynamique (depart string, dico_villes map[string]donnees.Coordonnees)([
 
 	chemin_min = append(chemin_min, depart)
 
-	for i :=0; i < len(Makelist(dico_villes)); i++ {
+	for i :=0; i < len(donnees.Makelist(dico_villes)); i++ {
 
 		ville := Memo_pred[etat]
 		chemin_min = append(chemin_min, ville)

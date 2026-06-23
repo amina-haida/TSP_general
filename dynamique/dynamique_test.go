@@ -4,19 +4,20 @@ import (
 	"testing"
 	"TSP_general/donnees"
 	"slices"
-	"TSP_general/glouton")
+	"TSP_general/glouton"
+)
 
 
 
 
 func Test_Makeliste(t *testing.T){
-	donnees := map[string]donnees.Coordonnees {
+	dico_villes := map[string]donnees.Coordonnees {
 		"FR": {Latitude : 46.227638, Longitude: 2.213749},
 		"GA": {Latitude :-0.803689, Longitude:  11.609444},
 		"GB": {Latitude : 55.378051, Longitude: -3.435973},
 	}
 	res := []string{"FR", "GA","GB"}
-	if !slices.Equal(res, Makelist(donnees)){
+	if !slices.Equal(res, donnees.Makelist(dico_villes)){
 		    t.Fatalf("attendu pas ce qu'on a eu")
     }
 
@@ -40,14 +41,14 @@ func Test_paysvisites(t *testing.T) {
         Pas_Visitees: "101",
         Arrivee:  "FR",
     }
-	donnees := map[string]donnees.Coordonnees {
+	dico_villes := map[string]donnees.Coordonnees {
 		"FR": {Latitude : 46.227638, Longitude: 2.213749},
 		"GA": {Latitude :-0.803689, Longitude:  11.609444},
 		"GB": {Latitude : 55.378051, Longitude: -3.435973},
 	}
 
 	res := []string{"FR", "GB"}
-	Liste_villes =Makelist(donnees)
+	Liste_villes = donnees.Makelist(dico_villes)
 	if !slices.Equal(res, villeavisitees(etat)){
 		    t.Fatalf("attendu pas ce qu'on a eu")
     }
@@ -59,12 +60,12 @@ func Test_enlever(t *testing.T){
         Pas_Visitees: "101",
         Arrivee:  "FR",
     }
-	donnees := map[string]donnees.Coordonnees {
+	dico_villes := map[string]donnees.Coordonnees {
 		"FR": {Latitude : 46.227638, Longitude: 2.213749},
 		"GA": {Latitude :-0.803689, Longitude:  11.609444},
 		"GB": {Latitude : 55.378051, Longitude: -3.435973},
 	}
-	Liste_villes = Makelist(donnees)
+	Liste_villes = donnees.Makelist(dico_villes)
 	etat2 := Etat{ Pas_Visitees : "001", Arrivee : "FR"}
 
 	if Enlever(etat, "FR") != etat2{
@@ -101,12 +102,12 @@ func Test_Cout_dynamique(t *testing.T){
         Arrivee:  "FR",
     }
 
-	donnees2 := map[string]donnees.Coordonnees {
+	dico_villes2 := map[string]donnees.Coordonnees {
 		"FR": {Latitude : 46.227638, Longitude: 2.213749},
 		"GA": {Latitude :-0.803689, Longitude:  11.609444},
 		"GB": {Latitude : 55.378051, Longitude: -3.435973},
 	}
-	Liste_villes = Makelist(donnees2)
+	Liste_villes = donnees.Makelist(dico_villes2)
 
 	res:= Cout_dynamique(etat, "GA")
 

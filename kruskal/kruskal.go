@@ -4,7 +4,6 @@ package kruskal
 import(
 	"TSP_general/glouton"
 	"TSP_general/donnees"
-	"TSP_general/dynamique"
 
 )
 
@@ -17,16 +16,16 @@ type  Arrete struct{
 }
 
 
-func Poids_liste(donnees map[string]donnees.Coordonnees)([]Arrete){
+func Poids_liste(dico_villes map[string]donnees.Coordonnees)([]Arrete){
 
-	Liste_pays := dynamique.Makelist(donnees ) 
+	Liste_pays := donnees.Makelist(dico_villes ) 
 
 	var Liste_Arrete []Arrete
 
 	for i := range Liste_pays {
 		for j:= i+1 ; j< len(Liste_pays); j++{
-			Liste_Arrete = append(Liste_Arrete, Arrete{Poids : glouton.Distance(donnees[Liste_pays[i]], 
-				donnees[Liste_pays[j]]), Depart : Liste_pays[i], Arrivee : Liste_pays[j] } )
+			Liste_Arrete = append(Liste_Arrete, Arrete{Poids : glouton.Distance(dico_villes[Liste_pays[i]], 
+				dico_villes[Liste_pays[j]]), Depart : Liste_pays[i], Arrivee : Liste_pays[j] } )
 		}
 	}
 
