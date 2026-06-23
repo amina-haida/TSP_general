@@ -160,7 +160,7 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 				Points = donnees.Monde
 			}
 			if choix == "Aléatoire"{
-				Points = donnees.ville_aléatoire(15)
+				Points = donnees.Ville_aléatoire(15)
 			}
 			Dessin_points(Points, affichePoints)
 

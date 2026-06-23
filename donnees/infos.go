@@ -1,9 +1,10 @@
 package donnees
 
-
-import ("math"
-"math/rand"
+import (
+	"math"
+	"math/rand"
 	"slices"
+	"time"
 )
 
 
@@ -303,7 +304,7 @@ func Minmax(objet map[string]Coordonnees) (minLat, maxLat, minLon, maxLon float6
 	return
 }
 
-func Ville_aléatoire(n int)([]string){
+func Ville_aléatoire(n int)(map[string]Coordonnees){
 
 		liste_ville := Makelist(Monde)
 		new_list := make([]string,0)
@@ -318,8 +319,15 @@ func Ville_aléatoire(n int)([]string){
 
 			}
 		}
-return new_list
+
+		dico_aleatoire := make(map[string]Coordonnees)
+		for _,ville := range new_list {
+			dico_aleatoire[ville] = Monde[ville]
+		}
+return dico_aleatoire
 }
+
+// Cette fonction est testée dans les tests de dynamique
 
 func Makelist( donnees map[string]Coordonnees) ([]string){
 	var new []string
@@ -328,4 +336,13 @@ func Makelist( donnees map[string]Coordonnees) ([]string){
 	}
 	slices.Sort(new)
 	return new
+}
+
+func somme(liste []time.Duration)time.Duration{
+	var somme time.Duration
+	somme = 0
+	for i := range liste {
+		somme = somme + liste[i]
+	}
+	return  somme
 }
