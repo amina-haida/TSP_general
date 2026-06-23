@@ -53,25 +53,66 @@ func Tri_latitude(listeVille []string, Points map[string]donnees.Coordonnees) []
 	}
 }
 
-func Strip(Points map[string]donnees.Coordonnees) []string{
-	_, _, minLon, maxLon := donnees.Minmax(Points)
-	var trajet []string
-	n := float64(len(Points)/2)
-
-	for i := minLon; i < maxLon; i = i + n{
-		var trajet_tempo []string
-		for ville := range Points{
-			if i < Points[ville].Longitude && Points[ville].Longitude < i + n{
-			trajet_tempo = append(trajet_tempo, ville)
-			}
-		}
-		Tri_latitude(trajet_tempo, Points)
-
-		for _, ville_tri := range trajet_tempo{
-			trajet = append(trajet, ville_tri)
-		}
+func Inverser(l []string) {
+	for i, j := 0, len(l)-1; i < j; i, j = i+1, j-1 {
+		l[i], l[j] = l[j], l[i]
 	}
-	trajet = append(trajet, trajet[0])
-	return trajet	
 }
 
+func Strip(Points map[string]donnees.Coordonnees, depart string) []string {
+
+	_, _, minLon, maxLon := donnees.Minmax(Points)
+
+	var trajet []string
+
+	nbBandes := len(Points)/ 2
+
+	largeur := (maxLon - minLon) / float64(nbBandes)
+
+	sens := true
+
+	for x := minLon; x <= maxLon; x += largeur {
+
+		var bande []string
+
+		for ville := range Points {
+
+			lon := Points[ville].Longitude
+
+			if lon >= x && lon < x+largeur {
+				bande = append(bande, ville)
+			}
+		}
+
+		bande = Tri_latitude(bande, Points)
+
+		if !sens {
+			Inverser(bande)
+		}
+
+		trajet = append(trajet, bande...)
+
+		sens = !sens
+	}
+
+
+	pos := -1
+
+	for i, v := range trajet {
+		if v == depart {
+			pos = i
+			break
+		}
+	}
+
+	if pos != -1 {
+		trajet = append(trajet[pos:], trajet[:pos]...)
+	}
+	
+
+	if len(trajet) > 0 {
+		trajet = append(trajet, trajet[0])
+	}
+
+	return trajet
+}

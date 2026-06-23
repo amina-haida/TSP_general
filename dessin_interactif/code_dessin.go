@@ -144,7 +144,7 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 		selectionDepart.SetSelected("")
 		selectionDepart.Refresh()
 	}
-
+	distanceLabel := widget.NewLabel("Distance : ---")
 	selectionPays := widget.NewSelect(
 		[]string{
 			"Europe",
@@ -200,21 +200,18 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 				}
 			}
 			if choix == "Strip"{
-				trajet = strip.Strip(Points)
+				trajet = strip.Strip(Points, depart)
 			}
+			distanceLabel.SetText(
+			fmt.Sprintf(
+				"Distance : %.0f km",
+				glouton.Cout(trajet),
+				),
+			)
 			Redessiner(Points, depart, trajet, affichePoints, afficheTrajet)
 
 		},
 	)
-
-
-	distanceLabel := widget.NewLabel("Distance : ---")
-	distanceLabel.SetText(
-	fmt.Sprintf(
-		"Distance : %.0f km",
-		glouton.Cout(trajet),
-	),
-)
 
 
 	zoomPlus := widget.NewButton("+", func() {
@@ -278,6 +275,7 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 		afficheTrajet,
 		affichePoints,
 	)
+	
 
 	return container.NewBorder(
 		topBar,

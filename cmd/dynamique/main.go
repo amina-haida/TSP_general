@@ -25,6 +25,7 @@ func main(){
 	map_villes["PL"] = donnees.Europe()["PL"]
 	map_villes["PT"] = donnees.Europe()["PT"]
 	map_villes["SE"] = donnees.Europe()["SE"]
+	
 
 		chemin_min := dynamique.TSP_dynamique("FR",map_villes)
 		fmt.Println("Le chemin optimal est : ", chemin_min)

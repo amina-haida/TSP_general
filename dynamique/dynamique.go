@@ -121,7 +121,7 @@ func TSP_dynamique (depart string, dico_villes map[string]donnees.Coordonnees)([
 		ville := Memo_pred[etat]
 		chemin_min = append(chemin_min, ville)
 		etat = Enlever(etat, ville)
-}
+	}
 
-		return chemin_min
+	return chemin_min
 }
