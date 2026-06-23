@@ -3,7 +3,7 @@ package donnees
 
 import ("math"
 "math/rand"
-	"TSP_general/dynamique"
+	"slices"
 )
 
 
@@ -305,7 +305,7 @@ func Minmax(objet map[string]Coordonnees) (minLat, maxLat, minLon, maxLon float6
 
 func Ville_aléatoire(n int)([]string){
 
-		liste_ville := dynamique.Makelist(Monde)
+		liste_ville := Makelist(Monde)
 		new_list := make([]string,0)
 		visites := make(map[string]bool)
 
@@ -317,8 +317,15 @@ func Ville_aléatoire(n int)([]string){
 				new_list = append(new_list, ville)
 
 			}
-
-
 		}
+return new_list
+}
 
+func Makelist( donnees map[string]Coordonnees) ([]string){
+	var new []string
+	for ville := range donnees {
+		new = append(new, ville)
+	}
+	slices.Sort(new)
+	return new
 }

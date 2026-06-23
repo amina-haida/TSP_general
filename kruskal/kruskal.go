@@ -19,7 +19,7 @@ type  Arrete struct{
 
 func Poids_liste(donnees map[string]donnees.Coordonnees)([]Arrete){
 
-	Liste_pays := dynamique.Makelist(donnees ) 
+	Liste_pays := donnees.Makelist(donnees ) 
 
 	var Liste_Arrete []Arrete
 
