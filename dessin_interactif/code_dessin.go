@@ -1,19 +1,20 @@
 package dessin_interactif
 
 import (
-	"fmt"
 	"TSP_general/donnees"
 	"TSP_general/dynamique"
 	"TSP_general/glouton"
 	"TSP_general/opt_glouton"
 	"TSP_general/recuit_simule"
+	"TSP_general/strip"
+	"fmt"
 	"image/color"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
-	"fyne.io/fyne/v2/widget"
 	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/widget"
 )
 
 const Longueur = 1000.0
@@ -174,7 +175,7 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 	})
 
 	selectionAlgo := widget.NewSelect(
-		[]string{"Glouton", "2-opt", "Recuit simulé", "Dynamique"},
+		[]string{"Glouton", "2-opt", "Recuit simulé", "Dynamique", "Strip"},
 		func(choix string) {
 			afficheTrajet.RemoveAll()
 
@@ -197,6 +198,9 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 						w,
     				)
 				}
+			}
+			if choix == "Strip"{
+				trajet = strip.Strip(Points)
 			}
 			Redessiner(Points, depart, trajet, affichePoints, afficheTrajet)
 
