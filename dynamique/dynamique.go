@@ -61,10 +61,10 @@ func Enlever(etat Etat, ville string)(Etat){
 
 
 
-func Cout_dynamique( etat Etat, depart string) (float64){
+func Cout_dynamique( etat Etat, depart string, Points map[string]donnees.Coordonnees) (float64){
     if longueur(etat) == 0 {
 
-        res := glouton.Distance( donnees.Monde[depart],  donnees.Monde[etat.Arrivee])
+        res := glouton.Distance( Points[depart],  Points[etat.Arrivee])
 		Memo_cout[etat] = res
 		Memo_pred[etat] = etat.Arrivee
         return res
@@ -79,10 +79,10 @@ func Cout_dynamique( etat Etat, depart string) (float64){
 			_, exists := Memo_cout[etat1]
 			var res1 float64
 			if exists {
-			 res1 = Memo_cout[etat1] + glouton.Distance( donnees.Monde[ville], donnees.Monde[etat.Arrivee])
+			 res1 = Memo_cout[etat1] + glouton.Distance( Points[ville], Points[etat.Arrivee])
 			
 			}else {
-				res1 = Cout_dynamique( etat1, depart) + glouton.Distance( donnees.Monde[ville],donnees.Monde[etat.Arrivee])
+				res1 = Cout_dynamique( etat1, depart, Points) + glouton.Distance( Points[ville], Points[etat.Arrivee])
 
 			}
             if res1 < min_cout {
@@ -110,7 +110,7 @@ func TSP_dynamique (depart string, dico_villes map[string]donnees.Coordonnees)([
 	liste := strings.Repeat("1", len(Liste_villes))
 	etat := Etat{ Pas_Visitees : liste , Arrivee : depart }
 
-	Cout_dynamique(etat,depart)
+	Cout_dynamique(etat,depart, dico_villes)
 
 	var chemin_min []string
 

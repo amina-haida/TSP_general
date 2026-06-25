@@ -4,6 +4,7 @@ import (
 	"math"
 	"math/rand"
 	"slices"
+	"strconv"
 	"time"
 )
 
@@ -357,13 +358,13 @@ func Somme2(liste []float64)float64{
 }
 
 
-func GenererVilles(n int) map[int]Coordonnees {
+func GenererVilles(n int) map[string]Coordonnees {
 	rand.Seed(time.Now().UnixNano())
 
-	villes := make(map[int]Coordonnees, n)
+	villes := make(map[string]Coordonnees, n)
 
 	for i := 1; i <= n; i++ {
-		villes[i] = Coordonnees{
+		villes[strconv.Itoa(i)] = Coordonnees{
 			Latitude:  rand.Float64() * 100,
 			Longitude: rand.Float64() * 100,
 		}
