@@ -109,7 +109,7 @@ func Test_Cout_dynamique(t *testing.T){
 	}
 	Liste_villes = donnees.Makelist(dico_villes2)
 
-	res:= Cout_dynamique(etat, "GA")
+	res:= Cout_dynamique(etat, "GA", donnees.Monde)
 
 	res_attendu := glouton.Distance(donnees.Monde["GA"], donnees.Monde["FR"])
 
@@ -132,7 +132,7 @@ func Test_Pred(t *testing.T) {
         Arrivee: "FR",
     }
 
-    Cout_dynamique(etat, "FR")
+    Cout_dynamique(etat, "FR", donnees.Monde)
 
     pred := Memo_pred[etat]
 

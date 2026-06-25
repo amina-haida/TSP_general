@@ -34,9 +34,9 @@ func Opt_aléatoire(trajet []string) []string {
 	return newTrajet 
 } 
 	
-func Recuit(depart string, pays map[string]donnees.Coordonnees) []string { 
+func Recuit(depart string, dicoVilles map[string]donnees.Coordonnees) []string { 
 	n := 1000
-	trajet := opt_glouton.Fonc_optGlouton(depart, pays)
+	trajet := opt_glouton.Fonc_optGlouton(depart, dicoVilles)
 
 	actuel := make([]string, len(trajet)) 
 	copy(actuel, trajet) 
@@ -49,8 +49,8 @@ func Recuit(depart string, pays map[string]donnees.Coordonnees) []string {
 	for i := 0; i < n+1; i++ { 
 		newTrajet := Opt_aléatoire(actuel) 
 	
-		coutActuel := glouton.Cout(actuel) 
-		coutNew := glouton.Cout(newTrajet) 
+		coutActuel := glouton.Cout(actuel, dicoVilles) 
+		coutNew := glouton.Cout(newTrajet, dicoVilles) 
 		
 		delta := float64(coutNew - coutActuel) 
 		
@@ -58,7 +58,7 @@ func Recuit(depart string, pays map[string]donnees.Coordonnees) []string {
 			actuel = newTrajet 
 		} 
 		
-		if glouton.Cout(actuel) < glouton.Cout(meilleur) {
+		if glouton.Cout(actuel, dicoVilles) < glouton.Cout(meilleur, dicoVilles) {
 			meilleur = actuel 
 		}
 		

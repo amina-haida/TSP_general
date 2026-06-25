@@ -3,7 +3,6 @@ package strip
 import (
 	"TSP_general/donnees"
 	"TSP_general/glouton"
-	"fmt"
 )
 
 
@@ -120,7 +119,7 @@ func Strip(Points map[string]donnees.Coordonnees, depart string, mesure float64)
 
 func MeilleurStrip(depart string, Points map[string]donnees.Coordonnees) []string {
 	min := Strip(Points, depart, 0)
-	coutMin := glouton.Cout(min)
+	coutMin := glouton.Cout(min, Points)
 
 	_, _, minLon, maxLon := donnees.Minmax(Points)
 
@@ -134,9 +133,7 @@ func MeilleurStrip(depart string, Points map[string]donnees.Coordonnees) []strin
 
 		trajet := Strip(Points, depart, mesure)
 
-		cout := glouton.Cout(trajet)
-
-		fmt.Println(trajet)
+		cout := glouton.Cout(trajet, Points)
 
 		if cout < coutMin {
 			min = trajet

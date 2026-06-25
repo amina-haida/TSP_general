@@ -161,7 +161,7 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 				Points = donnees.Monde
 			}
 			if choix == "Aléatoire"{
-				Points = donnees.Ville_aléatoire(15)
+				Points = donnees.GenererVilles(15)
 			}
 			Dessin_points(Points, affichePoints)
 
@@ -205,7 +205,7 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 			distanceLabel.SetText(
 			fmt.Sprintf(
 				"Distance : %.0f km",
-				glouton.Cout(trajet),
+				glouton.Cout(trajet, Points),
 				),
 			)
 			Redessiner(Points, depart, trajet, affichePoints, afficheTrajet)

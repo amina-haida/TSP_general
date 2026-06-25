@@ -13,12 +13,12 @@ func Distance(p1, p2 donnees.Coordonnees) float64 {
 	return dx*dx + dy*dy
 }
 
-func Cout(trajet []string) float64 {
+func Cout(trajet []string, Points map[string]donnees.Coordonnees) float64 {
 	total := 0.0
 
 	for i := 0; i < len(trajet)-1; i++ {
-		p1 := donnees.Monde[trajet[i]]
-		p2 := donnees.Monde[trajet[i+1]]
+		p1 := Points[trajet[i]]
+		p2 := Points[trajet[i+1]]
 
 		total += math.Sqrt(Distance(p1, p2))
 	}

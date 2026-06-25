@@ -41,7 +41,7 @@ func TestCout(t *testing.T) {
 	
 	cycle := []string{"FR", "GA", "RU", "ZM"}
 
-	c := Cout(cycle)
+	c := Cout(cycle, donnees.Monde)
 
 	if c <= 0 {
 		t.Error("le coût doit être positif")

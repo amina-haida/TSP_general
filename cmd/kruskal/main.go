@@ -29,7 +29,7 @@ func main (){
 		fmt.Println("Le chemin optimal est : ", chemin_min)
 
 		duree := time.Since(start)
-		cout := glouton.Cout(chemin_min)
+		cout := glouton.Cout(chemin_min, donnees.Europe())
 		fmt.Println("le programme a pris :", duree,"de coût", cout)
 
 }
