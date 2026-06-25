@@ -34,6 +34,10 @@ func PlusProche(actuel string,
 	meilleureDistance := math.Inf(1)
 
 	for nom := range nonVisites {
+		   if nom == actuel {
+            continue
+        }
+
 		d := Distance(listePays[actuel], listePays[nom])
 
 		if d < meilleureDistance {

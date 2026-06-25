@@ -62,18 +62,18 @@ func Combiner(L1,L2 []Arete)[]Arete{
 	}
 	return L
 }
+// On ne prouve pas Tri_Arete comme cette fonction correspond au tri fusion 
+func Tri_Arete(Liste_Arete []Arete) []Arete{
 
-func Tri_Arrete(Liste_Arrete []Arete) []Arete{
-
-	if len(Liste_Arrete) <2 {
-		return Liste_Arrete
+	if len(Liste_Arete) <2 {
+		return Liste_Arete
 	}else {
-		milieu := len(Liste_Arrete)/2
-		Liste1 := Liste_Arrete[:milieu]
-		Liste2 := Liste_Arrete[milieu:]
+		milieu := len(Liste_Arete)/2
+		Liste1 := Liste_Arete[:milieu]
+		Liste2 := Liste_Arete[milieu:]
 
-		L1_triee := Tri_Arrete(Liste1)
-		L2_triee := Tri_Arrete(Liste2)
+		L1_triee := Tri_Arete(Liste1)
+		L2_triee := Tri_Arete(Liste2)
 
 		L_finale := Combiner(L1_triee, L2_triee)
 
@@ -86,7 +86,7 @@ func Tri_Arrete(Liste_Arrete []Arete) []Arete{
 
 func Kruskal_privee( donnees map[string]donnees.Coordonnees) ([]Arete){
 
-	Arrete_triee := Tri_Arrete(Poids_liste(donnees))
+	Arete_triee := Tri_Arete(Poids_liste(donnees))
 	var Arbre_liste []Arete
 	R := make(map[string]string)
 
@@ -95,14 +95,14 @@ func Kruskal_privee( donnees map[string]donnees.Coordonnees) ([]Arete){
 		R[pays] = pays
 	}
 
-	for i := range Arrete_triee{
-		if R[Arrete_triee[i].Depart] != R[Arrete_triee[i].Arrivee] {
+	for i := range Arete_triee{
+		if R[Arete_triee[i].Depart] != R[Arete_triee[i].Arrivee] {
 
-			Arbre_liste = append(Arbre_liste, Arrete_triee[i])
-			stock := R[Arrete_triee[i].Arrivee]
+			Arbre_liste = append(Arbre_liste, Arete_triee[i])
+			stock := R[Arete_triee[i].Arrivee]
 			for pays := range donnees {
 				if R[pays] == stock{
-					R[pays] = Arrete_triee[i].Depart
+					R[pays] = Arete_triee[i].Depart
 				}
 			}
 
@@ -117,9 +117,9 @@ func Kruskal_privee( donnees map[string]donnees.Coordonnees) ([]Arete){
 func Conversion_dico(Arbre_liste []Arete)map[string][]string{
 	Arbre_dico := make(map[string][]string)
 	for i := range Arbre_liste{
-		Arrete:= Arbre_liste[i]
-		Arbre_dico[Arrete.Depart] = append( Arbre_dico[Arrete.Depart],Arrete.Arrivee)
-    	Arbre_dico[Arrete.Arrivee] = append( Arbre_dico[Arrete.Arrivee],Arrete.Depart)
+		Arete:= Arbre_liste[i]
+		Arbre_dico[Arete.Depart] = append( Arbre_dico[Arete.Depart],Arete.Arrivee)
+    	Arbre_dico[Arete.Arrivee] = append( Arbre_dico[Arete.Arrivee],Arete.Depart)
 	}
 
 	return Arbre_dico
