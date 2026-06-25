@@ -46,24 +46,24 @@ algos_2 := []Algo{
 depart := "FR"
 
 
-temps_15_pays := make(map[string][]time.Duration)
+temps_10_pays := make(map[string][]time.Duration)
 
 
 for i:=0; i<5;i++{
 
-	dicoVilles := donnees.Ville_aléatoire(15)
+	dicoVilles := donnees.Ville_aléatoire(10)
 for _ , algo := range algos {
 
 		start := time.Now()
 		_ = algo.fonction(depart, dicoVilles)
 		duree := time.Since(start)
-		temps_15_pays[algo.Nom] = append(temps_15_pays[algo.Nom],duree)
+		temps_10_pays[algo.Nom] = append(temps_10_pays[algo.Nom],duree)
 
 	}}
 
 moyenne := make(map[string]time.Duration) 
 
-for nom, liste := range temps_15_pays{
+for nom, liste := range temps_10_pays{
 	moyenne[nom] = donnees.Somme(liste)/5
 }
 
@@ -85,6 +85,9 @@ exactitude := make(map[string]float64)
 
 for i := 0; i<5; i++{
 dicoVilles := donnees.Ville_aléatoire(15)
+cout_exact := glouton.Cout(dynamique.TSP_dynamique(depart, dicoVilles))
+liste_cout_exacts = append(liste_cout_exacts, cout_exact)
+
 for _, algo := range algos_2 {
 
 
@@ -94,8 +97,6 @@ for _, algo := range algos_2 {
 		temps_15_pays2[algo.Nom] = append(temps_15_pays2[algo.Nom],duree)
 		cout := glouton.Cout(chemin)
 		cout_15_pays2[algo.Nom] = append(cout_15_pays2[algo.Nom], cout)
-		cout_exact := glouton.Cout(branchandbound.F_branchandbound(depart, dicoVilles))
-		liste_cout_exacts = append(liste_cout_exacts, cout_exact)
 
 	
 	}}
@@ -122,7 +123,7 @@ for nom, liste := range cout_15_pays2{
 i:=0
 for nom, cout2 := range moyenne2_cout{
 	cout_exact := liste_cout_exacts[i]
-	i++
+	i ++
 	exactitude[nom] = math.Abs(cout2-cout_exact) / cout_exact
 
 }

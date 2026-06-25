@@ -7,7 +7,7 @@ import(
 
 )
 
-type  Arrete struct{
+type  Arete struct{
 
 	Poids float64
 	Depart string
@@ -16,15 +16,15 @@ type  Arrete struct{
 }
 
 
-func Poids_liste(dico_villes map[string]donnees.Coordonnees)([]Arrete){
+func Poids_liste(dico_villes map[string]donnees.Coordonnees)([]Arete){
 
 	Liste_pays := donnees.Makelist(dico_villes ) 
 
-	var Liste_Arrete []Arrete
+	var Liste_Arrete []Arete
 
 	for i := range Liste_pays {
 		for j:= i+1 ; j< len(Liste_pays); j++{
-			Liste_Arrete = append(Liste_Arrete, Arrete{Poids : glouton.Distance(dico_villes[Liste_pays[i]], 
+			Liste_Arrete = append(Liste_Arrete, Arete{Poids : glouton.Distance(dico_villes[Liste_pays[i]], 
 				dico_villes[Liste_pays[j]]), Depart : Liste_pays[i], Arrivee : Liste_pays[j] } )
 		}
 	}
@@ -33,11 +33,11 @@ func Poids_liste(dico_villes map[string]donnees.Coordonnees)([]Arrete){
 }
 
 
-func Combiner(L1,L2 []Arrete)[]Arrete{
+func Combiner(L1,L2 []Arete)[]Arete{
 
 	i1:=0
 	i2:=0
-	var L []Arrete
+	var L []Arete
 
 	for i:=0 ; i<len(L1)+len(L2) ; i++{
 
@@ -63,7 +63,7 @@ func Combiner(L1,L2 []Arrete)[]Arrete{
 	return L
 }
 
-func Tri_Arrete(Liste_Arrete []Arrete) []Arrete{
+func Tri_Arrete(Liste_Arrete []Arete) []Arete{
 
 	if len(Liste_Arrete) <2 {
 		return Liste_Arrete
@@ -84,10 +84,10 @@ func Tri_Arrete(Liste_Arrete []Arrete) []Arrete{
 
 
 
-func Kruskal_privee( donnees map[string]donnees.Coordonnees) ([]Arrete){
+func Kruskal_privee( donnees map[string]donnees.Coordonnees) ([]Arete){
 
 	Arrete_triee := Tri_Arrete(Poids_liste(donnees))
-	var Arbre_liste []Arrete
+	var Arbre_liste []Arete
 	R := make(map[string]string)
 
 
@@ -114,7 +114,7 @@ func Kruskal_privee( donnees map[string]donnees.Coordonnees) ([]Arrete){
 }
 
 
-func Conversion_dico(Arbre_liste []Arrete)map[string][]string{
+func Conversion_dico(Arbre_liste []Arete)map[string][]string{
 	Arbre_dico := make(map[string][]string)
 	for i := range Arbre_liste{
 		Arrete:= Arbre_liste[i]
