@@ -118,7 +118,7 @@ func Strip(Points map[string]donnees.Coordonnees, depart string, mesure float64)
 	return trajet
 }
 
-func MeilleurStrip(Points map[string]donnees.Coordonnees, depart string) []string {
+func MeilleurStrip(depart string, Points map[string]donnees.Coordonnees) []string {
 	min := Strip(Points, depart, 0)
 	coutMin := glouton.Cout(min)
 

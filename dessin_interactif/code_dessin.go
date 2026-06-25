@@ -200,7 +200,7 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 				}
 			}
 			if choix == "Strip"{
-				trajet = strip.MeilleurStrip(Points, depart)
+				trajet = strip.MeilleurStrip(depart, Points)
 			}
 			distanceLabel.SetText(
 			fmt.Sprintf(
