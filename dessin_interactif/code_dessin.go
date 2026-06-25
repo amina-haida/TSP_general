@@ -205,7 +205,7 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 			distanceLabel.SetText(
 			fmt.Sprintf(
 				"Distance : %.0f km",
-				glouton.Cout(trajet),
+				glouton.Cout(trajet, Points),
 				),
 			)
 			Redessiner(Points, depart, trajet, affichePoints, afficheTrajet)

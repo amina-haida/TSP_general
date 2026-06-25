@@ -26,10 +26,10 @@ func main() {
 	tour := glouton.Fonc_glouton("FR", map_pays)
 
 	fmt.Println(tour)
-	fmt.Println(glouton.Cout(tour))
+	fmt.Println(glouton.Cout(tour, donnees.Europe()))
 
 	duree := time.Since(start)
-	cout :=  glouton.Cout(tour)
+	cout :=  glouton.Cout(tour, donnees.Europe())
 
 	fmt.Println("Le programme a duré :", duree, "est", tour, "de coût", cout)
 	

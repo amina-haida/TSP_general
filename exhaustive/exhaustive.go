@@ -3,7 +3,7 @@ package exhaustive
 import(
 	"TSP_general/donnees"
 	"slices"
-"TSP_general/glouton")
+	"TSP_general/glouton")
 
 
 	
@@ -55,11 +55,11 @@ func Exhaustive(depart string, dico_villes map[string]donnees.Coordonnees)  []st
 	
 	Liste_chemin=F_exhaustive("FR", dico_villes)
 
-	meilleur_cout = glouton.Cout(Liste_chemin[0])
+	meilleur_cout = glouton.Cout(Liste_chemin[0], dico_villes)
 	meilleur_chemin = Liste_chemin[0]
 	var c float64 
 	for i:=0; i< len(Liste_chemin); i++{
-		c = glouton.Cout(Liste_chemin[i])
+		c = glouton.Cout(Liste_chemin[i], dico_villes)
 		if c < meilleur_cout{
 			meilleur_chemin = Liste_chemin[i] 
 			meilleur_cout = c

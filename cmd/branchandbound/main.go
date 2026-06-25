@@ -31,7 +31,7 @@ func main (){
 	chemin_min := branchandbound.F_branchandbound("FR",map_villes)
 
 	duree := time.Since(start)
-	cout := glouton.Cout(chemin_min)
+	cout := glouton.Cout(chemin_min, donnees.Europe())
 
 	fmt.Println("Le chemin optimal est ", chemin_min, "calculé en", duree, "de cout", cout)
 }
