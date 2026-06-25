@@ -338,8 +338,17 @@ func Makelist( donnees map[string]Coordonnees) ([]string){
 	return new
 }
 
-func somme(liste []time.Duration)time.Duration{
+func Somme(liste []time.Duration)time.Duration{
 	var somme time.Duration
+	somme = 0
+	for i := range liste {
+		somme = somme + liste[i]
+	}
+	return  somme
+}
+
+func Somme2(liste []float64)float64{
+	var somme float64
 	somme = 0
 	for i := range liste {
 		somme = somme + liste[i]
