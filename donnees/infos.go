@@ -355,3 +355,19 @@ func Somme2(liste []float64)float64{
 	}
 	return  somme
 }
+
+
+func GenererVilles(n int) map[int]Coordonnees {
+	rand.Seed(time.Now().UnixNano())
+
+	villes := make(map[int]Coordonnees, n)
+
+	for i := 1; i <= n; i++ {
+		villes[i] = Coordonnees{
+			Latitude:  rand.Float64() * 100,
+			Longitude: rand.Float64() * 100,
+		}
+	}
+
+	return villes
+}
