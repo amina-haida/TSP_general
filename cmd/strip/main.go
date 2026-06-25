@@ -7,6 +7,6 @@ import (
 )
 
 func main(){
-	trajet := strip.Strip(donnees.Europe(), "FR")
+	trajet := strip.MeilleurStrip(donnees.Europe(), "FR")
 	fmt.Println(trajet)
 }

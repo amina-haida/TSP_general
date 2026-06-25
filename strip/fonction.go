@@ -2,7 +2,10 @@ package strip
 
 import (
 	"TSP_general/donnees"
+	"TSP_general/glouton"
+	"fmt"
 )
+
 
 func Combiner(L1,L2 []string, Points map[string]donnees.Coordonnees)[]string{
 
@@ -59,19 +62,19 @@ func Inverser(l []string) {
 	}
 }
 
-func Strip(Points map[string]donnees.Coordonnees, depart string) []string {
+func Strip(Points map[string]donnees.Coordonnees, depart string, mesure float64) []string {
 
 	_, _, minLon, maxLon := donnees.Minmax(Points)
 
 	var trajet []string
 
-	nbBandes := len(Points)/ 2
+	nbBandes := len(Points) / 2
 
 	largeur := (maxLon - minLon) / float64(nbBandes)
 
 	sens := true
 
-	for x := minLon; x <= maxLon; x += largeur {
+	for x := minLon - mesure; x <= maxLon; x += largeur {
 
 		var bande []string
 
@@ -95,7 +98,6 @@ func Strip(Points map[string]donnees.Coordonnees, depart string) []string {
 		sens = !sens
 	}
 
-
 	pos := -1
 
 	for i, v := range trajet {
@@ -108,11 +110,38 @@ func Strip(Points map[string]donnees.Coordonnees, depart string) []string {
 	if pos != -1 {
 		trajet = append(trajet[pos:], trajet[:pos]...)
 	}
-	
 
 	if len(trajet) > 0 {
 		trajet = append(trajet, trajet[0])
 	}
 
 	return trajet
+}
+
+func MeilleurStrip(Points map[string]donnees.Coordonnees, depart string) []string {
+	min := Strip(Points, depart, 0)
+	coutMin := glouton.Cout(min)
+
+	_, _, minLon, maxLon := donnees.Minmax(Points)
+
+	nbBandes := len(Points) / 2
+	largeur := (maxLon - minLon) / float64(nbBandes) 
+
+	for k := 0; k < nbBandes; k++ {
+
+		mesure := largeur * float64(k) / float64(nbBandes)
+
+
+		trajet := Strip(Points, depart, mesure)
+
+		cout := glouton.Cout(trajet)
+
+		fmt.Println(trajet)
+
+		if cout < coutMin {
+			min = trajet
+			coutMin = cout
+		}
+	}
+	return min
 }
