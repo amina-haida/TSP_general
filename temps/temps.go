@@ -118,7 +118,7 @@ func Comparaison_heuristiques(n int) {
 
 			temps_ville[algo.Nom] = append(temps_ville[algo.Nom], duree)
 
-			cout := glouton.Cout(chemin, donnees.Monde)
+			cout := glouton.Cout(chemin, dicoVilles)
 			cout_ville[algo.Nom] = append(cout_ville[algo.Nom], cout)
 
 			erreur := math.Abs(cout-coutExact) / coutExact
