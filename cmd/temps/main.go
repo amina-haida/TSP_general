@@ -4,5 +4,5 @@ import ( "TSP_general/temps")
 
 func main(){
 
-	temps.Comparaison_exacts(20)
+	temps.Comparaison_heuristiques(100)
 }

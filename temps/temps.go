@@ -108,7 +108,7 @@ func Comparaison_heuristiques(n int) {
 		dicoVilles := donnees.Ville_aléatoire(n)
 
 
-		coutExact := glouton.Cout(dynamique.TSP_dynamique(depart, dicoVilles))
+		coutExact := glouton.Cout(dynamique.TSP_dynamique(depart, dicoVilles), dicoVilles)
 	
 		for _, algo := range algos_2 {
 
@@ -118,7 +118,7 @@ func Comparaison_heuristiques(n int) {
 
 			temps_ville[algo.Nom] = append(temps_ville[algo.Nom], duree)
 
-			cout := glouton.Cout(chemin)
+			cout := glouton.Cout(chemin, donnees.Monde)
 			cout_ville[algo.Nom] = append(cout_ville[algo.Nom], cout)
 
 			erreur := math.Abs(cout-coutExact) / coutExact
