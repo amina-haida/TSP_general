@@ -1,32 +1,34 @@
-package main 
+package main
 
-import ("TSP_general/christofides"
-"TSP_general/donnees"
-"time"
-"fmt")
+import (
+	"TSP_general/christofides"
+	"TSP_general/donnees"
+	"TSP_general/dynamique"
+	"TSP_general/glouton"
+	"TSP_general/kruskal"
+
+	"fmt"
+)
 	
 func main(){
 
-	start := time.Now()
 
+		map_villes := donnees.Ville_aleatoire(11)
+depart :=""
 
-		map_villes := make(map[string]donnees.Coordonnees, 0)
-	map_villes["FR"] = donnees.Europe()["FR"]
-	map_villes["ES"] = donnees.Europe()["ES"]
-	map_villes["UK"] = donnees.Europe()["UK"]
-	map_villes["IT"] = donnees.Europe()["IT"]
-	map_villes["LI"] = donnees.Europe()["LI"]
-	map_villes["MT"] = donnees.Europe()["MT"]
-	map_villes["NL"] = donnees.Europe()["NL"]
-	map_villes["NO"] = donnees.Europe()["NO"]
-	map_villes["PL"] = donnees.Europe()["PL"]
-	map_villes["PT"] = donnees.Europe()["PT"]
-	map_villes["SE"] = donnees.Europe()["SE"]
+for ville := range map_villes{
+	depart = ville
+}
 	
 
-		chemin_min := christofides.Christofides("FR",map_villes)
-		fmt.Println("Le chemin  est : ", chemin_min)
-		duree := time.Since(start)
+		chemin_min_c := christofides.Christofides(depart,map_villes)
+		chemin_min_k := kruskal.Kruskal_TSP(depart,map_villes)
+		chemin := dynamique.TSP_dynamique(depart,map_villes)
 
-		fmt.Println("le programme a pris :", duree)
+		cout_c := glouton.Cout(chemin_min_c, map_villes)
+			cout_k := glouton.Cout(chemin_min_k,map_villes)
+				cout:= glouton.Cout(chemin,map_villes)
+			
+		fmt.Println("Le chemin  est : ", chemin,"de cout", cout, "kruskal : ", chemin_min_k,"de cout",cout_k, "christofides", chemin_min_c, "de cout",cout_c)
+
 }

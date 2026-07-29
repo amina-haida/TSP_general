@@ -4,6 +4,7 @@ package kruskal
 import(
 	"TSP_general/glouton"
 	"TSP_general/donnees"
+	"slices"
 
 )
 
@@ -113,16 +114,19 @@ func Kruskal_privee( donnees map[string]donnees.Coordonnees) ([]Arete){
 
 }
 
+func Conversion_dico(Arbre_liste []Arete) map[string][]string {
+    Arbre_dico := make(map[string][]string)
 
-func Conversion_dico(Arbre_liste []Arete)map[string][]string{
-	Arbre_dico := make(map[string][]string)
-	for i := range Arbre_liste{
-		Arete:= Arbre_liste[i]
-		Arbre_dico[Arete.Depart] = append( Arbre_dico[Arete.Depart],Arete.Arrivee)
-    	Arbre_dico[Arete.Arrivee] = append( Arbre_dico[Arete.Arrivee],Arete.Depart)
-	}
+    for _, arete := range Arbre_liste {
+        Arbre_dico[arete.Depart] = append(Arbre_dico[arete.Depart], arete.Arrivee)
+        Arbre_dico[arete.Arrivee] = append(Arbre_dico[arete.Arrivee], arete.Depart)
+    }
 
-	return Arbre_dico
+    for sommet := range Arbre_dico {
+        slices.Sort(Arbre_dico[sommet])
+    }
+
+    return Arbre_dico
 }
 
 func Parcours(Arbre_dico map[string][]string, Chemin []string, sommet_actuel string, visites map[string]bool) []string{

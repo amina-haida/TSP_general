@@ -106,6 +106,12 @@ func TSP_dynamique (depart string, dico_villes map[string]donnees.Coordonnees)([
 	Memo_cout = make(map[Etat]float64)
 
 	Liste_villes = donnees.Makelist(dico_villes)
+	for i, v := range Liste_villes {
+    if v == depart {
+        Liste_villes = append(Liste_villes[:i], Liste_villes[i+1:]...)
+        break
+    }
+}
 
 	liste := strings.Repeat("1", len(Liste_villes))
 	etat := Etat{ Pas_Visitees : liste , Arrivee : depart }
@@ -115,13 +121,12 @@ func TSP_dynamique (depart string, dico_villes map[string]donnees.Coordonnees)([
 	var chemin_min []string
 
 	chemin_min = append(chemin_min, depart)
-
-	for i :=0; i < len(donnees.Makelist(dico_villes)); i++ {
+for i := 0; i < len(Liste_villes); i++ {
 
 		ville := Memo_pred[etat]
 		chemin_min = append(chemin_min, ville)
 		etat = Enlever(etat, ville)
 	}
-
+chemin_min = append(chemin_min, depart)
 	return chemin_min
 }

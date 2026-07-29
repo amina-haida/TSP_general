@@ -15,8 +15,8 @@ func F_branchandbound_privee(depart string, chemin []string, visites map[string]
 			new_chemin := make([]string, len(chemin)+1)
 			copy(new_chemin, chemin)	
 			new_chemin[len(chemin)]=depart
-		c := cout_courant + glouton.Distance(dico_Villes[chemin[len(chemin)-1]],dico_Villes[depart] )
-		if c <= min {
+		c := cout_courant + math.Sqrt(glouton.Distance(dico_Villes[chemin[len(chemin)-1]],dico_Villes[depart] ))
+		if c < min {
 			min = c
 			meilleur_chemin = new_chemin
 
@@ -26,7 +26,7 @@ func F_branchandbound_privee(depart string, chemin []string, visites map[string]
 		for ville := range dico_Villes {
 			if visites[ville] != true {
 
-				c := cout_courant + glouton.Distance(dico_Villes[chemin[len(chemin)-1]], dico_Villes[ville] )
+				c := cout_courant + math.Sqrt(glouton.Distance(dico_Villes[chemin[len(chemin)-1]],dico_Villes[ville] ))
 				if min >= c {
 					visites[ville] = true
 					chemin = append(chemin, ville)
@@ -46,7 +46,7 @@ func F_branchandbound(depart string, dico_Villes map[string]donnees.Coordonnees)
 	meilleur_chemin = glouton.Fonc_glouton(depart, dico_Villes)
 	visites := make(map[string]bool)
 	visites[depart] = true
-	min = math.MaxFloat64
+	min = glouton.Cout(meilleur_chemin, dico_Villes)
 	F_branchandbound_privee(depart, chemin, visites, dico_Villes,0)
 
 return meilleur_chemin
