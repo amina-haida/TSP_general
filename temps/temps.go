@@ -11,9 +11,7 @@ import (
 	"TSP_general/opt_glouton"
 	"TSP_general/recuit_simule"
 	"TSP_general/strip"
-
 	"fmt"
-	"math"
 	"time"
 )
 
@@ -118,7 +116,6 @@ func Comparaison_heuristiques(n int) {
 
 	temps_ville := make(map[string][]time.Duration)
 	cout_ville := make(map[string][]float64)
-	erreurs := make(map[string][]float64)
 	if n <= 11{
 
 	for i := 0; i < 5; i++ {
@@ -131,7 +128,6 @@ for {
     }
 }
 
-		coutExact := glouton.Cout(branchandbound.F_branchandbound(depart, dicoVilles), dicoVilles)
 	
 		for _, algo := range algos_2 {
 
@@ -145,8 +141,6 @@ for {
 			cout := glouton.Cout(chemin, dicoVilles)
 			cout_ville[algo.Nom] = append(cout_ville[algo.Nom], cout)
 
-			erreur := math.Abs(cout-coutExact) / coutExact
-			erreurs[algo.Nom] = append(erreurs[algo.Nom], erreur)
 		}
 	}
 
@@ -162,16 +156,7 @@ for {
 	for nom, liste := range cout_ville {
 		moyenne := donnees.Somme2(liste) / float64(len(liste))
 		fmt.Println(nom, ":", moyenne)
-	}
-
-	
-	fmt.Println("\n===== Erreur moyenne par rapport à l'optimum =====")
-	for nom, liste := range erreurs {
-		moyenne := donnees.Somme2(liste) / float64(len(liste))
-		fmt.Printf("%s : %.2f %%\n", nom, 100*moyenne)
-		}	
-		
-}else{
+	}		}else{
 
 				for i := 0; i < 5; i++ {
 var dicoVilles map[string]donnees.Coordonnees
@@ -215,4 +200,39 @@ for {
 	}
 
 		}
+}
+
+
+
+func Garantie(n int){
+	if n <=20{
+var dicoVilles map[string]donnees.Coordonnees
+
+for {
+    dicoVilles = donnees.Ville_aleatoire(n)
+    if _, ok := dicoVilles["FR"]; ok {
+        break
+    }
+}
+
+cout_exact := glouton.Cout(dynamique.TSP_dynamique("FR", dicoVilles), dicoVilles)
+
+cout_k := glouton.Cout(kruskal.Kruskal_TSP("FR",dicoVilles),dicoVilles)
+cout_c := glouton.Cout(christofides.Christofides("FR",dicoVilles),dicoVilles)
+
+if cout_k <= cout_exact*2{
+fmt.Println("Le cout exact est", cout_exact, "celui de kurskal est", cout_k, "il est bien <= 2*cout_opt")
+}else {
+	fmt.Println("Le cout exact est", cout_exact, "celui de kurskal est", cout_k, "il n'est pas <= 2*cout_opt")
+}
+
+if cout_c <= cout_exact*3/2{
+fmt.Println("Le cout exact est", cout_exact, "celui de christofides est", cout_c, "il est bien <= 3/2*cout_opt")
+}else {
+	fmt.Println("Le cout exact est", cout_exact, "celui de christofides est", cout_c, "il n'est pas <= 3/2*cout_opt")
+}
+	}else{
+		fmt.Println("Trop de pays en paramètres")
+	}
+
 }
