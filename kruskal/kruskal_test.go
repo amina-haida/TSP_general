@@ -83,3 +83,11 @@ if len(res) != 3{
 }
 
 }
+func Test_MST(t *testing.T) {
+    mapVilles := donnees.Ville_aleatoire(11)
+    arbre := Kruskal_privee(mapVilles)
+
+    if len(arbre) != len(mapVilles)-1 {
+        t.Fatalf("MST invalide : %d arêtes pour %d sommets", len(arbre), len(mapVilles))
+    }
+}

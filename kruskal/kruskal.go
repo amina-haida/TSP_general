@@ -103,7 +103,14 @@ func Kruskal_privee( donnees map[string]donnees.Coordonnees) ([]Arete){
 			stock := R[Arete_triee[i].Arrivee]
 			for pays := range donnees {
 				if R[pays] == stock{
-					R[pays] = Arete_triee[i].Depart
+					rep := R[Arete_triee[i].Depart]
+stock := R[Arete_triee[i].Arrivee]
+
+for pays := range donnees {
+    if R[pays] == stock {
+        R[pays] = rep
+    }
+}
 				}
 			}
 

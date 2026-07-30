@@ -2,13 +2,13 @@ package main
 
 import (
 	"TSP_general/temps"
-
+	"TSP_general/donnees"
 	"math/rand"
 	"time"
 )
 
 func main(){
  rand.Seed(time.Now().UnixNano())
-    temps.Garantie(15)
+    temps.Comparaison_heuristiques(len(donnees.Monde))
 
 }
