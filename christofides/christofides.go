@@ -123,7 +123,7 @@ func suivant(cycle []string, graphe map[string][]string)string{
 	}
 	return retour 
 }
-func cycle_eulérien(depart string, graphe map[string][]string)[]string{
+func cycle_eulerien(depart string, graphe map[string][]string)[]string{
 
 	cycle, graphe := Cycle(depart, graphe)
 
@@ -177,7 +177,7 @@ func Christofides(depart string, dicoVilles map[string]donnees.Coordonnees)[]str
 
 	multigraphe := kruskal.Conversion_dico(arete_multigraphe)
 
-    cycle_eul := cycle_eulérien(depart, multigraphe)
+    cycle_eul := cycle_eulerien(depart, multigraphe)
 
 	cycle_hamiltonien := Cycle_hamiltonien(cycle_eul)
 

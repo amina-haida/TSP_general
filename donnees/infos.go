@@ -305,7 +305,7 @@ func Minmax(objet map[string]Coordonnees) (minLat, maxLat, minLon, maxLon float6
 	return
 }
 
-func Ville_aléatoire(n int)(map[string]Coordonnees){
+func Ville_aleatoire(n int)map[string]Coordonnees{
 
 		liste_ville := Makelist(Monde)
 		new_list := make([]string,0)
@@ -315,7 +315,7 @@ func Ville_aléatoire(n int)(map[string]Coordonnees){
 			nb := rand.Intn(len(Monde))
 			ville := liste_ville[nb]
 			if visites[ville] != true {
-				visites[ville] = false 
+				visites[ville] = true 
 				new_list = append(new_list, ville)
 
 			}

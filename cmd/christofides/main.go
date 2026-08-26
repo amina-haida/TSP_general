@@ -1,13 +1,17 @@
-package main 
+package main
 
-import ("TSP_general/christofides"
-"TSP_general/donnees"
-"time"
-"fmt")
+import (
+	"TSP_general/christofides"
+	"TSP_general/donnees"
+	"TSP_general/dynamique"
+	"TSP_general/glouton"
+	"TSP_general/kruskal"
+
+	"fmt"
+)
 	
 func main(){
 
-	start := time.Now()
 
 	europe := donnees.Europe()
 

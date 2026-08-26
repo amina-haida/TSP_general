@@ -53,7 +53,7 @@ func Exhaustive(depart string, dico_villes map[string]donnees.Coordonnees)  []st
 	var meilleur_cout float64
 	var meilleur_chemin  []string
 	
-	Liste_chemin=F_exhaustive("FR", dico_villes)
+	Liste_chemin=F_exhaustive(depart, dico_villes)
 
 	meilleur_cout = glouton.Cout(Liste_chemin[0], dico_villes)
 	meilleur_chemin = Liste_chemin[0]
