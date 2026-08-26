@@ -6,7 +6,9 @@ import (
 	"TSP_general/glouton"
 	"TSP_general/opt_glouton"
 	"TSP_general/recuit_simule"
+	"TSP_general/christofides"
 	"TSP_general/strip"
+	"TSP_general/kruskal"
 	"fmt"
 	"image/color"
 
@@ -175,7 +177,7 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 	})
 
 	selectionAlgo := widget.NewSelect(
-		[]string{"Glouton", "2-opt", "Recuit simulé", "Dynamique", "Strip"},
+		[]string{"Glouton", "2-opt", "Recuit simulé", "Dynamique", "Strip", "Christofides", "Kruskal"},
 		func(choix string) {
 			afficheTrajet.RemoveAll()
 
@@ -201,6 +203,12 @@ func CreerInterface(w fyne.Window,) fyne.CanvasObject {
 			}
 			if choix == "Strip"{
 				trajet = strip.MeilleurStrip(depart, Points)
+			}
+			if choix == "Christofides"{
+				trajet = christofides.Christofides(depart, Points)
+			}
+			if choix == "Kruskal"{
+				trajet = kruskal.Kruskal_TSP(depart, Points)
 			}
 			distanceLabel.SetText(
 			fmt.Sprintf(
